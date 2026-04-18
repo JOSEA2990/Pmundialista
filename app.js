@@ -48,3 +48,23 @@ function mostrarPartidos(matches){
 }
 
 cargarMundial();
+
+async function guardar(){
+
+  const datos = {
+    id: crypto.randomUUID(),
+    jugador: "Jose",
+    partido: "PAN vs CRC",
+    local: "Panamá",
+    visitante: "Costa Rica",
+    golLocal: 2,
+    golVisitante: 1
+  };
+
+  await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec", {
+    method: "POST",
+    body: JSON.stringify(datos)
+  });
+
+  alert("Pronóstico guardado");
+}
