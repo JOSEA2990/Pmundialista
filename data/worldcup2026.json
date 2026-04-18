@@ -1,0 +1,16 @@
+{
+ "groups":{
+   "A":["USA","Mexico","Japan","Nigeria"],
+   "B":["Spain","Chile","Canada","Ghana"]
+ },
+
+   "groupMatches":[
+   {"id":1,"group":"A","home":"USA","away":"Mexico"},
+   {"id":2,"group":"A","home":"Japan","away":"Nigeria"},
+   {"id":3,"group":"A","home":"USA","away":"Japan"},
+   {"id":4,"group":"A","home":"Mexico","away":"Nigeria"},
+   {"id":5,"group":"A","home":"USA","away":"Nigeria"},
+   {"id":6,"group":"A","home":"Mexico","away":"Japan"}
+ ]
+
+}
