@@ -69,21 +69,34 @@ async function guardar(){
   alert("Pronóstico guardado");
 }
 
-async function registrar(){
+async function registrar() {
+
+  const nombre = document.getElementById("nombre").value;
+  const celular = document.getElementById("celular").value;
+
+  if (!nombre || !celular) {
+    alert("Debe ingresar nombre y celular");
+    return;
+  }
 
   const datos = {
-    tipo:"registro",
-    nombre:document.getElementById("nombre").value,
-    celular:document.getElementById("celular").value
+    tipo: "registro",
+    nombre: nombre,
+    celular: celular
   };
 
-  await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec", {
-  method: "POST",
-  mode: "no-cors",
-  body: JSON.stringify(datos)
-});
+  try {
 
-  const json = await res.json();
+    await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(datos)
+    });
 
-  alert("Tu ID es: " + json.id);
+    alert("Registro enviado ✅\nTe asignaré tu ID pronto.");
+
+  } catch (error) {
+    alert("Error al registrar");
+    console.error(error);
+  }
 }
