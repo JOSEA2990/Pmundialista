@@ -68,3 +68,22 @@ async function guardar(){
 
   alert("Pronóstico guardado");
 }
+
+async function registrar(){
+
+  const datos = {
+    tipo:"registro",
+    nombre:document.getElementById("nombre").value,
+    celular:document.getElementById("celular").value
+  };
+
+  const res = await fetch("TU_LINK_EXEC",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json"},
+    body: JSON.stringify(datos)
+  });
+
+  const json = await res.json();
+
+  alert("Tu ID es: " + json.id);
+}
