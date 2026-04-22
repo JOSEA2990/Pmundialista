@@ -79,44 +79,25 @@ async function registrar() {
     return;
   }
 
-  const datos = {
-    tipo: "registro",
-    nombre: nombre,
-    celular: celular
-  };
+  const datos = new URLSearchParams();
+  datos.append("tipo", "registro");
+  datos.append("nombre", nombre);
+  datos.append("celular", celular);
 
   try {
 
-    const response = await fetch(
+    await fetch(
       "https://script.google.com/macros/s/AKfycbwPF3pLAnlAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(datos)
+        body: datos
       }
     );
 
-    const resultado = await response.json();
-
-    // 👇 AQUÍ usas tu variable status existente
-    if (resultado.status === "nuevo") {
-
-      alert("✅ Usuario registrado\nID: " + resultado.id);
-
-    } else if (resultado.status === "existe") {
-
-      alert("⚠️ Usuario ya registrado");
-
-    } else {
-
-      alert("❌ Error desconocido");
-
-    }
+    alert("✅ Registro enviado");
 
   } catch (error) {
     console.error(error);
-    alert("Error de conexión");
+    alert("Error al registrar");
   }
 }
