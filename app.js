@@ -77,7 +77,7 @@ async function registrar(){
   datos.append("nombre", nombre);
   datos.append("celular", celular);
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec",{
+  const res = await fetch("/api/registro",{
       method:"POST",
       body:datos
   });
