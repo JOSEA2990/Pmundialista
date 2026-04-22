@@ -93,6 +93,15 @@ async function registrar() {
       body: JSON.stringify(datos)
     });
 
+    // ✅ diferenciar mensajes
+    if (resultado.status === "nuevo") {
+    alert("✅ Usuario creado\nID: " + resultado.id);
+    } else if (resultado.status === "existe") {
+    alert("⚠️ Este usuario ya está registrado");
+    } else {
+    alert("❌ Error inesperado");
+    }
+
     alert("Registro enviado ✅\nTe asignaré tu ID pronto.");
 
   } catch (error) {
