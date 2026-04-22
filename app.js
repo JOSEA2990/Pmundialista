@@ -69,7 +69,33 @@ async function guardar(){
   alert("Pronóstico guardado");
 }
 
-async function registrar() {
+async function registrar(){
+
+  const datos = new FormData();
+
+  datos.append("tipo","registro");
+  datos.append("nombre", nombre);
+  datos.append("celular", celular);
+
+  const res = await fetch(API_URL,{
+      method:"POST",
+      body:datos
+  });
+
+  const texto = await res.text();
+
+  const resultado = JSON.parse(texto);
+
+  if(resultado.status==="nuevo"){
+     alert("✅ Usuario creado");
+  }
+
+  if(resultado.status==="existe"){
+     alert("⚠️ Usuario ya registrado");
+  }
+}
+
+/* async function registrar() {
 
   const nombre = document.getElementById("nombre").value;
   const celular = document.getElementById("celular").value;
@@ -99,4 +125,4 @@ async function registrar() {
     alert("Error al registrar");
     console.error(error);
   }
-}
+}*/
