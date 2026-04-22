@@ -87,21 +87,11 @@ async function registrar() {
 
   try {
 
-    const respuesta = await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec", {
+    await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec", {
       method: "POST",
       mode: "no-cors",
       body: JSON.stringify(datos)
     });
-
-    const resultado = await respuesta.json();
-    // ✅ diferenciar mensajes
-    if (resultado.status === "nuevo") {
-    alert("✅ Usuario creado\nID: " + resultado.id);
-    } else if (resultado.status === "existe") {
-    alert("⚠️ Este usuario ya está registrado");
-    } else {
-    alert("❌ Error inesperado");
-    }
 
     alert("Registro enviado ✅\nTe asignaré tu ID pronto.");
 
