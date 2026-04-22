@@ -93,6 +93,7 @@ async function registrar() {
       body: JSON.stringify(datos)
     });
 
+     const resultado = await respuesta.json();
     // ✅ diferenciar mensajes
     if (resultado.status === "nuevo") {
     alert("✅ Usuario creado\nID: " + resultado.id);
