@@ -71,28 +71,34 @@ async function guardar(){
 
 async function registrar(){
 
-  const datos = new FormData();
+async function registrar(){
 
-  datos.append("tipo","registro");
-  datos.append("nombre", nombre);
-  datos.append("celular", celular);
+  const nombre = document.getElementById("nombre").value;
+  const celular = document.getElementById("celular").value;
+
+  const datos = {
+    tipo: "registro",
+    nombre: nombre,
+    celular: celular
+  };
 
   const res = await fetch("/api/registro",{
       method:"POST",
-      body:datos
+      body: JSON.stringify(datos)
   });
 
-  const texto = await res.text();
+  const data = await res.json();
 
-  const resultado = JSON.parse(texto);
-
-  if(resultado.status==="nuevo"){
-     alert("✅ Usuario creado");
+  // ✅ MENSAJES DIFERENTES
+  if(data.status === "nuevo"){
+      alert("✅ Usuario registrado correctamente");
   }
 
-  if(resultado.status==="existe"){
-     alert("⚠️ Usuario ya registrado");
+  if(data.status === "existe"){
+      alert("⚠️ Este usuario ya está registrado");
   }
+
+}
 }
 
 /* async function registrar() {
