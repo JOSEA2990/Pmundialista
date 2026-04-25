@@ -71,8 +71,6 @@ async function guardar(){
 
 async function registrar(){
 
-async function registrar(){
-
   const nombre = document.getElementById("nombre").value;
   const celular = document.getElementById("celular").value;
 
@@ -100,7 +98,7 @@ async function registrar(){
   }
 
 }
-}
+
 
 /* async function registrar() {
 
