@@ -77,7 +77,7 @@ async function registrar(){
   datos.append("nombre", nombre);
   datos.append("celular", celular);
 
-  const res = await fetch("api/registro.js",{
+  const res = await fetch("/api/registro",{
       method:"POST",
       body:datos
   });
