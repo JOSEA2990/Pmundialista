@@ -80,7 +80,7 @@ async function registrar(){
     celular: celular
   };
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec",{
+  const res = await fetch("https://script.google.com/macros/s/AKfycbyVhGAz_8vIuvy4SpPEKq22P27F-R3KKqCDIAsDGKw0Bma8MwnP8DFTJIbxxFc1yAjxWQ/exec",{
       method:"POST",
       body: JSON.stringify(datos)
   });
