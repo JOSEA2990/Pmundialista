@@ -80,14 +80,13 @@ async function registrar(){
     celular: celular
   };
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec"
-,{
+  const res = await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec",{
       method:"POST",
       body: JSON.stringify(datos)
   });
 
   const data = await res.json();
-
+  alert(data.status);
   // ✅ MENSAJES DIFERENTES
   if(data.status === "nuevo"){
       alert("✅ Usuario registrado correctamente");
@@ -98,7 +97,6 @@ async function registrar(){
   }
 
 }
-
 
 /* async function registrar() {
 
