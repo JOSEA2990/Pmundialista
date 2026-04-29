@@ -1,17 +1,23 @@
 export default async function handler(req, res) {
 
-  const url =
-    "https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec";
+  if(req.method !== "POST"){
+    return res.status(405).json({error:"Metodo no permitido"});
+  }
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(req.body).toString(),
-  });
+  const form = await req.formData();
 
-  const data = await response.text();
+  const datos = Object.fromEntries(form);
 
-  res.status(200).send(data);
+  // 👉 llamar a Google Apps Script
+  const respuesta = await fetch(
+    "https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec",
+    {
+      method:"POST",
+      body:new URLSearchParams(datos)
+    }
+  );
+
+  const texto = await respuesta.text();
+
+  res.status(200).send(texto);
 }

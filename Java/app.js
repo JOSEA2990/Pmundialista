@@ -1,3 +1,11 @@
+const usuario = localStorage.getItem("usuarioID");
+
+ if(!localStorage.getItem("usuarioID")){
+   window.location.href="index.html";
+}
+document.getElementById("bienvenida").innerText =
+ "Bienvenido " + localStorage.getItem("nombre");
+
 async function cargarMundial(){
 
  const res = await fetch("data/worldcup2026.json");
