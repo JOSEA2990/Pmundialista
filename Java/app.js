@@ -1,10 +1,12 @@
-const usuario = localStorage.getItem("usuarioID");
+const usuarioID = localStorage.getItem("usuarioID");
+const nombre = localStorage.getItem("nombre");
 
- if(!localStorage.getItem("usuarioID")){
-   window.location.href="index.html";
+if(!usuarioID){
+  window.location.href="index.html";
 }
+
 document.getElementById("bienvenida").innerText =
- "Bienvenido " + localStorage.getItem("nombre");
+"Bienvenido " + usuarioID;
 
 async function cargarMundial(){
 

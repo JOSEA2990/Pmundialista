@@ -1,3 +1,7 @@
+/* if(localStorage.getItem("usuarioID")){
+   window.location.href="app.html";
+}*/
+
 async function login(){
 
  const id = document.getElementById("id").value;
@@ -8,7 +12,9 @@ async function login(){
  datos.append("id",id);
  datos.append("celular",celular);
 
- const res = await fetch("/api/registro",{
+ alert("hola");
+
+ const res = await fetch("https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec",{
    method:"POST",
    body:datos
  });
