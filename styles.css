@@ -7,3 +7,93 @@ body{
  margin:10px;
  padding:10px;
 }
+
+#mundial{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  padding:20px;
+}
+
+/* tarjeta grupo */
+.grupo-card{
+  background:#c2c1c1;
+  border-radius:10px;
+  padding:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.grupo-card h2{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+/* lista equipos */
+.equipos{
+  text-align:center;
+  margin-bottom:10px;
+  font-size: 2vh;
+  color:rgb(0, 0, 0);
+}
+
+/* partidos */
+/*.partido{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:5px;
+  margin:5px 0;
+}*/
+
+
+/* tabla clasificación */
+.tabla{
+  margin-top:10px;
+  width:100%;
+  font-size:14px;
+  border-collapse:collapse;
+}
+
+.tabla td,.tabla th{
+  border-bottom:1px solid #ddd;
+  padding:4px;
+  text-align:center;
+}
+
+/* 📱 móvil */
+@media(max-width:900px){
+  #mundial{
+    grid-template-columns:1fr;
+  }
+}
+
+.partido{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  margin:8px 0;
+}
+
+.partido input{
+  width:40px;
+  text-align:center;
+}
+
+.equipo{
+  text-align:center;
+  font-weight:bold;
+  font-size: 2vh;
+}
+
+.marcador{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  justify-content:center;
+}
+
+.gol{
+  width:45px;
+  text-align:center;
+  font-size:18px;
+}

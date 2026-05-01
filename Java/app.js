@@ -10,54 +10,208 @@ document.getElementById("bienvenida").innerText =
 
 async function cargarMundial(){
 
-const URL="https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec";
+const URL="https://script.google.com/macros/s/AKfycbx4FlB1z3KLWH3fSbQdMby57AwcwB1yMvOcR8ahx-_QbubK1cDXmnJPSmfbK-Y8tyj5ag/exec";
 
 const res = await fetch(URL+"?accion=mundial");
 
 const data = await res.json();  
 console.log(data);   // 👈 IMPORTANTE
 
-mostrarGrupos(data.groups);
-mostrarPartidos(data.groupMatches);
+ const equipos = data.groups.slice(1);
+ const partidos = data.groupMatches.slice(1);
+
+ renderizarMundial(equipos, partidos);
 }
 
-function mostrarGrupos(groups){
+/*function mostrarGrupos(equipos){
 
- const container = document.getElementById("groups");
+ const contenedor = document.getElementById("grupos");
+ contenedor.innerHTML="";
 
- for(const grupo in groups){
+ // agrupar equipos por grupo
+ const grupos = {};
+
+ equipos.forEach(e=>{
+   const grupo = e[0];
+   const equipo = e[1];
+
+   if(!grupos[grupo]) grupos[grupo]=[];
+   grupos[grupo].push(equipo);
+ });
+
+ // crear HTML
+ Object.keys(grupos).forEach(grupo=>{
 
    const div = document.createElement("div");
-   div.className="group";
+   div.className="grupo";
 
-   div.innerHTML = `
-      <h2>Grupo ${grupo}</h2>
-      ${groups[grupo].map(e=>`<p>${e}</p>`).join("")}
-   `;
+   let html = `<h3>Grupo ${grupo}</h3><ul>`;
 
-   container.appendChild(div);
- }
-}
+   grupos[grupo].forEach(eq=>{
+     html+=`<li>${eq}</li>`;
+   });
 
-function mostrarPartidos(matches){
+   html+=`</ul>`;
 
- const container = document.getElementById("groups");
+   div.innerHTML=html;
+   contenedor.appendChild(div);
 
- matches.forEach(match=>{
+ });
+}*/
+
+/*function mostrarPartidos(partidos){
+
+ const contenedor=document.getElementById("partidos");
+ contenedor.innerHTML="";
+
+ const grupos={};
+
+ // agrupar partidos
+ partidos.forEach(p=>{
+
+   const grupo=p[1];
+
+   if(!grupos[grupo]) grupos[grupo]=[];
+   grupos[grupo].push(p);
+
+ });
+
+ Object.keys(grupos).forEach(grupo=>{
 
    const div=document.createElement("div");
+   div.className="grupo-partidos";
 
-   div.innerHTML=`
-     <p>
-       ${match.home}
-       <input type="number" min="0" id="h${match.id}" style="width:40px">
+   let html=`<h3>Partidos Grupo ${grupo}</h3>`;
+
+   grupos[grupo].forEach(p=>{
+
+     html+=`
+       <div class="partido">
+
+         <span>${p[2]}</span>
+
+         <input type="number"
+           data-id="${p[0]}"
+           data-tipo="local"
+           min="0">
+
+         vs
+
+         <input type="number"
+           data-id="${p[0]}"
+           data-tipo="visitante"
+           min="0">
+
+         <span>${p[3]}</span>
+
+         <small>${p[4]}</small>
+
+       </div>
+     `;
+   });
+
+   div.innerHTML=html;
+   contenedor.appendChild(div);
+
+ });
+}*/
+
+function renderizarMundial(equipos, partidos){
+
+ const contenedor=document.getElementById("mundial");
+ contenedor.innerHTML="";
+
+ const grupos={};
+
+ // organizar equipos
+ equipos.forEach(e=>{
+   const grupo=e[0];
+   const equipo=e[1];
+
+   if(!grupos[grupo]){
+     grupos[grupo]={
+       equipos:[],
+       partidos:[]
+     };
+   }
+
+   grupos[grupo].equipos.push(equipo);
+ });
+
+ // organizar partidos
+ partidos.forEach(p=>{
+   grupos[p[1]].partidos.push(p);
+ });
+
+ // crear tarjetas
+ Object.keys(grupos).forEach(grupo=>{
+
+   const g=grupos[grupo];
+
+   const card=document.createElement("div");
+   card.className="grupo-card";
+
+   let html=`<h2>Grupo ${grupo}</h2>`;
+
+   /* EQUIPOS */
+   html+=`<div class="equipos">`;
+   g.equipos.forEach(eq=>{
+     html+=`<div>${eq}</div>`;
+   });
+   html+=`</div>`;
+
+   /* PARTIDOS */
+   html+=`<div class="partidos">`;
+
+   g.partidos.forEach(p=>{
+
+     html+=`
+     <div class="partido">
+
+       <div class="equipo">
+       <span>${p[2]}</span>
+       </div>
+
+       <div class="marcador">
+       <input type="number"
+        data-id="${p[0]}"
+        data-equipo="${p[2]}"
+        class="gol">
+
        -
-       <input type="number" min="0" id="a${match.id}" style="width:40px">
-       ${match.away}
-     </p>
+
+       <input type="number"
+        data-id="${p[0]}"
+        data-equipo="${p[3]}"
+        class="gol">
+        </div>
+
+       <div class="equipo">
+       <span>${p[3]}</span>
+       </div>
+
+     </div>`;
+   });
+
+   html+=`</div>`;
+
+   /* TABLA VACIA (se llenará luego) */
+   html+=`
+   <table class="tabla" id="tabla-${grupo}">
+     <thead>
+       <tr>
+         <th>Equipo</th>
+         <th>Pts</th>
+         <th>DG</th>
+       </tr>
+     </thead>
+     <tbody></tbody>
+   </table>
    `;
 
-   container.appendChild(div);
+   card.innerHTML=html;
+   contenedor.appendChild(card);
+
  });
 }
 
@@ -94,7 +248,7 @@ async function registrar(){
     celular: celular
   };
 
-  const URL="https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec";
+const URL="https://script.google.com/macros/s/AKfycbx4FlB1z3KLWH3fSbQdMby57AwcwB1yMvOcR8ahx-_QbubK1cDXmnJPSmfbK-Y8tyj5ag/exec";
 
   const res = await fetch(URL,{
       method:"POST",
