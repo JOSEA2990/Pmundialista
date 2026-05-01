@@ -10,11 +10,15 @@ document.getElementById("bienvenida").innerText =
 
 async function cargarMundial(){
 
- const res = await fetch("data/worldcup2026.json");
- const data = await res.json();
+const URL="https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec";
 
- mostrarGrupos(data.groups);
- mostrarPartidos(data.groupMatches);
+const res = await fetch(URL+"?accion=mundial");
+
+const data = await res.json();  
+console.log(data);   // 👈 IMPORTANTE
+
+mostrarGrupos(data.groups);
+mostrarPartidos(data.groupMatches);
 }
 
 function mostrarGrupos(groups){
@@ -71,7 +75,7 @@ async function guardar(){
     golVisitante: 1
   };
 
-  await fetch("https://script.google.com/macros/s/AKfycbwPF3pLAnltAI7OkmXF5sLqZT7kSyV_l_fLIP23c3skpNpG3pi2jdQcd84J7f8uchA0iQ/exec", {
+  await fetch("https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec", {
     method: "POST",
     body: JSON.stringify(datos)
   });
@@ -90,7 +94,9 @@ async function registrar(){
     celular: celular
   };
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec",{
+  const URL="https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec";
+
+  const res = await fetch(URL,{
       method:"POST",
       body: JSON.stringify(datos)
   });

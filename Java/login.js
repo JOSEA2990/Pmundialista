@@ -14,7 +14,9 @@ async function login(){
 
  alert("hola");
 
- const res = await fetch("https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec",{
+const URL="https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec";
+
+ const res = await fetch(URL+"?accion=usuarios",{
    method:"POST",
    body:datos
  });
@@ -24,8 +26,8 @@ async function login(){
  if(r.status==="ok"){
 
    localStorage.setItem("usuarioID",id);
-
    window.location.href="app.html";
+
  }else{
    alert("❌ Datos incorrectos");
  }
