@@ -65,6 +65,10 @@ body{
   #mundial{
     grid-template-columns:1fr;
   }
+
+  .Login{
+    justify-content:center;
+  }
 }
 
 .partido{
@@ -96,4 +100,10 @@ body{
   width:45px;
   text-align:center;
   font-size:18px;
+}
+
+.Login{
+    display:flex;
+    align-items:center;
+    background-color: red;
 }

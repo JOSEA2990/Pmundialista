@@ -123,8 +123,12 @@ function renderizarMundial(equipos, partidos){
 
  const grupos={};
 
- // organizar equipos
+ /* =========================
+   ORGANIZAR EQUIPOS
+========================= */
+
  equipos.forEach(e=>{
+
    const grupo=e[0];
    const equipo=e[1];
 
@@ -138,12 +142,21 @@ function renderizarMundial(equipos, partidos){
    grupos[grupo].equipos.push(equipo);
  });
 
- // organizar partidos
+ /* =========================
+   ORGANIZAR PARTIDOS
+========================= */
+
  partidos.forEach(p=>{
-   grupos[p[1]].partidos.push(p);
+   const grupo=p[1];
+   if(grupos[grupo]){
+     grupos[grupo].partidos.push(p);
+   }
  });
 
- // crear tarjetas
+ /* =========================
+   CREAR TARJETAS
+========================= */
+
  Object.keys(grupos).forEach(grupo=>{
 
    const g=grupos[grupo];
@@ -153,54 +166,54 @@ function renderizarMundial(equipos, partidos){
 
    let html=`<h2>Grupo ${grupo}</h2>`;
 
-   /* EQUIPOS */
+   /* -------- EQUIPOS -------- */
+
    html+=`<div class="equipos">`;
    g.equipos.forEach(eq=>{
      html+=`<div>${eq}</div>`;
    });
    html+=`</div>`;
 
-   /* PARTIDOS */
+   /* -------- PARTIDOS -------- */
+
    html+=`<div class="partidos">`;
 
-   g.partidos.forEach(p=>{
+   g.partidos.forEach(partido=>{
+    /*console.log("GRUPO PARTIDO:", "["+partido[2]+"]","["+partido[3]+"]" );*/
 
      html+=`
-     <div class="partido">
+     <div class="partido" data-grupo="${grupo}">
 
-       <div class="equipo">
-       <span>${p[2]}</span>
-       </div>
+       <div class="equipo local">${partido[2]}</div>
 
        <div class="marcador">
-       <input type="number"
-        data-id="${p[0]}"
-        data-equipo="${p[2]}"
-        class="gol">
+         <input type="number" class="gol-local"
+           data-equipo="${partido[2]}"
+           data-grupo="${grupo}">
 
-       -
+         <span>-</span>
 
-       <input type="number"
-        data-id="${p[0]}"
-        data-equipo="${p[3]}"
-        class="gol">
-        </div>
-
-       <div class="equipo">
-       <span>${p[3]}</span>
+         <input type="number" class="gol-visitante"
+           data-equipo="${partido[3]}"
+           data-grupo="${grupo}">
        </div>
 
-     </div>`;
+       <div class="equipo visitante">${partido[3]}</div>
+
+     </div>
+     `;
    });
 
    html+=`</div>`;
 
-   /* TABLA VACIA (se llenará luego) */
+   /* -------- TABLA -------- */
+
    html+=`
    <table class="tabla" id="tabla-${grupo}">
      <thead>
        <tr>
          <th>Equipo</th>
+         <th>PJ</th>
          <th>Pts</th>
          <th>DG</th>
        </tr>
@@ -213,8 +226,17 @@ function renderizarMundial(equipos, partidos){
    contenedor.appendChild(card);
 
  });
-}
 
+ /* =========================
+   ACTIVAR CALCULO AUTOMATICO
+========================= */
+
+ document.querySelectorAll(".gol-local, .gol-visitante")
+ .forEach(input=>{
+   input.addEventListener("input",recalcularTablas);
+ });
+
+}
 cargarMundial();
 
 async function guardar(){
@@ -266,6 +288,102 @@ const URL="https://script.google.com/macros/s/AKfycbx4FlB1z3KLWH3fSbQdMby57AwcwB
       alert("⚠️ Este usuario ya está registrado");
   }
 
+}
+
+function recalcularTablas(){
+
+ const grupos = {};
+
+ document.querySelectorAll(".partido").forEach(p=>{
+
+   const grupo = p.dataset.grupo;
+
+   if(!grupos[grupo]) grupos[grupo]={};
+
+   const local = p.querySelector(".gol-local");
+   const visitante = p.querySelector(".gol-visitante");
+
+   const equipoLocal = local.dataset.equipo;
+   const equipoVisitante = visitante.dataset.equipo;
+
+   const gl = parseInt(local.value);
+   const gv = parseInt(visitante.value);
+
+   if(isNaN(gl) || isNaN(gv)) return;
+
+   iniciarEquipo(grupos[grupo],equipoLocal);
+   iniciarEquipo(grupos[grupo],equipoVisitante);
+
+   actualizarStats(grupos[grupo][equipoLocal],gl,gv);
+   actualizarStats(grupos[grupo][equipoVisitante],gv,gl);
+
+ });
+
+ pintarTablas(grupos);
+}
+
+function iniciarEquipo(grupo,equipo){
+
+ if(!grupo[equipo]){
+   grupo[equipo]={
+     equipo,
+     PJ:0,PG:0,PE:0,PP:0,
+     GF:0,GC:0,DG:0,PTS:0
+   };
+ }
+}
+
+function actualizarStats(eq,gf,gc){
+
+ eq.PJ++;
+ eq.GF+=gf;
+ eq.GC+=gc;
+ eq.DG=eq.GF-eq.GC;
+
+ if(gf>gc){
+   eq.PG++;
+   eq.PTS+=3;
+ }
+ else if(gf===gc){
+   eq.PE++;
+   eq.PTS+=1;
+ }
+ else{
+   eq.PP++;
+ }
+}
+
+function pintarTablas(grupos){
+
+ for(const g in grupos){
+
+   const equipos = Object.values(grupos[g]);
+
+   equipos.sort((a,b)=>
+      b.PTS-a.PTS ||
+      b.DG-a.DG ||
+      b.GF-a.GF
+   );
+
+   /* SOLO EL TBODY */
+   const tbody = document.querySelector(`#tabla-${g} tbody`);
+
+   /* 🔥 limpiar filas anteriores */
+   tbody.innerHTML = "";
+
+   equipos.forEach(e=>{
+
+     tbody.innerHTML += `
+       <tr>
+         <td>${e.equipo}</td>
+         <td>${e.PJ}</td>
+         <td>${e.PTS}</td>
+         <td>${e.DG}</td>
+       </tr>
+     `;
+
+   });
+ }
 }
 
 /* async function registrar() {
