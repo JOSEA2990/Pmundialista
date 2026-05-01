@@ -69,6 +69,10 @@ body{
   .Login{
     justify-content:center;
   }
+
+  .equipo{
+  font-size: 1.5vh;
+}
 }
 
 .partido{
