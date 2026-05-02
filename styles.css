@@ -12,7 +12,7 @@ body{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  padding:20px;
+  padding:15px;
 }
 
 /* tarjeta grupo */
@@ -21,11 +21,14 @@ body{
   border-radius:10px;
   padding:15px;
   box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  width:100%;
+  box-sizing:border-box;
 }
 
 .grupo-card h2{
   text-align:center;
   margin-bottom:10px;
+  font-size: 4vh;
 }
 
 /* lista equipos */
@@ -37,13 +40,15 @@ body{
 }
 
 /* partidos */
-/*.partido{
+.partido{
   display:flex;
   justify-content:center;
   align-items:center;
   gap:5px;
   margin:5px 0;
-}*/
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 1vh;
+}
 
 
 /* tabla clasificación */
@@ -71,7 +76,8 @@ body{
   }
 
   .equipo{
-  font-size: 1vh;
+    font-size: 0.5rem;
+    color: rgb(7, 7, 7);
 }
 }
 
@@ -110,4 +116,18 @@ body{
     display:flex;
     align-items:center;
     background-color: red;
+}
+
+.terceros tr.clasifica{
+ background:#d4edda;
+ font-weight:bold;
+}
+
+.terceros tr.eliminado{
+ opacity:0.6;
+}
+
+.titulo-fase{
+ text-align:center;
+ margin-top:40px;
 }
