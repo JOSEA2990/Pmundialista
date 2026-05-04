@@ -1,4 +1,4 @@
-const reglas = {
+/*const reglas = {
  A:["B","C","D","E","F","G","H","I","J","K","L"],
  B:["A","C","D","E","F","G","H","I","J","K","L"],
  D:["A","B","C","E","F","G","H","I","J","K","L"],
@@ -9,9 +9,9 @@ const reglas = {
  L:["A","B","C","D","E","F","G","H","I","J","K"]
 };
 
-const ordenAsignacion = ["A","B","D","E","G","I","K","L"];
+const ordenAsignacion = ["A","B","D","E","G","I","K","L"];*/
 
-export function generarCruces(primeros, tercerosClasificados){
+/*export function generarCruces(primeros, tercerosClasificados){
 
    let disponibles = [...tercerosClasificados];
    const cruces = [];
@@ -32,7 +32,7 @@ export function generarCruces(primeros, tercerosClasificados){
    });
 
    return cruces;
-}
+}*/
 
 /*export function pintarOctavos(cruces){
 
@@ -54,32 +54,37 @@ export function pintarOctavos(cruces, clasificados){
    document.getElementById("octavos");
 
  contenedor.innerHTML =
-   "<h2>Octavos de Final</h2>";
+   "<h2>Dieciseisavos de Final</h2>";
 
  cruces.forEach((c,i)=>{
+ 
+   const numero = c.id || c.partido?.id;
 
-   const local =
-      clasificados[c.local];
+   const local = clasificados[c.local];
 
-   const visitante =
-      clasificados[c.visitante];
+   const visitante = clasificados[c.visitante];
 
    contenedor.innerHTML += `
    <div class="partido-eliminatoria">
 
-      <span>${local.equipo}</span>
+      <div class="numero">
+         Partido ${numero}
+      </div>
+
+      <div class="linea-equipos">
+      <span class="local">${c.local} ${local.equipo}</span>
 
       <input type="number"
          class="golLocal"
          data-id="${i}">
-
       -
-
       <input type="number"
          class="golVisitante"
          data-id="${i}">
 
-      <span>${visitante.equipo}</span>
+      <span class="visitante">${c.visitante} ${visitante.equipo}</span>
+      </div>
+
 
       <label>
         <input type="checkbox"
@@ -98,7 +103,7 @@ export function pintarOctavos(cruces, clasificados){
    `;
  });
 
-activarPenales();
+ activarPenales();
 }
 
 function activarPenales(){
@@ -243,19 +248,30 @@ export function buscarFilaINDEXC(codigo){
 }
 
 /* =====================
-   GENERAR OCTAVOS
+   GENERAR 16 AVOS
 ===================== */
 
-const NUMEROS_PARTIDOS_TERCEROS = [
-  74,
-  77,
-  79,
-  80,
-  81,
-  82,
-  85,
-  87
-];
+/*const NUMEROS_PARTIDOS_TERCEROS = [
+  {id:74},
+  {id:77},
+  {id:79},
+  {id:80},
+  {id:81},
+  {id:82},
+  {id:85},
+  {id:87}
+];*/
+
+const MAPA_PARTIDOS_TERCEROS = {
+  "1A":79,
+  "1B":85,
+  "1D":81,
+  "1E":74,
+  "1G":82,
+  "1I":77,
+  "1K":87,
+  "1L":80
+};
 
 export function generarCrucesDesdeINDEXC(fila){
 
@@ -263,7 +279,7 @@ export function generarCrucesDesdeINDEXC(fila){
  const cruces=[];
 
  let indicePartido=0;
- 
+
  for(let c=13;c<header.length;c++){
 
    const primero = header[c];
@@ -271,7 +287,7 @@ export function generarCrucesDesdeINDEXC(fila){
 
    if(rival){
       cruces.push({
-        partido: NUMEROS_PARTIDOS_TERCEROS[indicePartido],
+        id: MAPA_PARTIDOS_TERCEROS[primero],
         local: primero,
         visitante: rival
       });

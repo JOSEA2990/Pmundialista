@@ -1,7 +1,9 @@
 import { obtenerClasificados, crearMapaClasificados, generarPartidosFijos } from "./clasificacion.js";
 import { pintarTablaTerceros } from "./terceros.js";
-import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";
-import { generarCruces, pintarOctavos }from "./clasificacion.js";
+/*import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";*/
+/*import { generarCruces, pintarOctavos }from "./clasificacion.js";*/
+import { obtenerCodigoTerceros } from "./utils.js";
+import { buscarFilaINDEXC, generarCrucesDesdeINDEXC, pintarOctavos} from "./clasificacion.js";
 
 function renderizarMundial(equipos, partidos){
 
@@ -69,7 +71,7 @@ function renderizarMundial(equipos, partidos){
     /*console.log("GRUPO PARTIDO:", "["+partido[2]+"]","["+partido[3]+"]" );*/
 
      html+=`
-     <div class="partido" data-grupo="${grupo}">
+     <div class="partido-grupo" data-grupo="${grupo}">
 
        <div class="equipo">${partido[2]}</div>
 
@@ -128,7 +130,7 @@ function renderizarMundial(equipos, partidos){
 function recalcularTablas(){
 
  const grupos = {};
- document.querySelectorAll(".partido").forEach(p=>{
+ document.querySelectorAll(".partido-grupo").forEach(p=>{
 
    const grupo = p.dataset.grupo;
 
@@ -188,7 +190,7 @@ const codigo = obtenerCodigoTerceros(clasificados.mejoresTerceros);
 
 const filaFIFA = buscarFilaINDEXC(codigo);
 
-const cruces = generarCrucesDesdeINDEXC(filaFIFA);
+/*const cruces = generarCrucesDesdeINDEXC(filaFIFA);*/
 
 const partidosFijos = generarPartidosFijos();
 const partidosVariables = generarCrucesDesdeINDEXC(filaFIFA);
@@ -287,8 +289,6 @@ function pintarTablas(grupos){
    recalcularTablas();
 }*/
 
-import { obtenerCodigoTerceros } from "./utils.js";
-import { buscarFilaINDEXC, generarCrucesDesdeINDEXC } from "./clasificacion.js";
 
 export {
  renderizarMundial,

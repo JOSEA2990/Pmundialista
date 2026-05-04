@@ -1,6 +1,5 @@
 function generarPrimeraEliminatoria(datos){
 
-
  const P=datos.posiciones;
  const T=datos.mejoresTerceros;
 

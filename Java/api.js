@@ -15,7 +15,7 @@ console.log(data);   // 👈 IMPORTANTE
    partidos: data.groupMatches.slice(1)
  };
 
- renderizarMundial(equipos, partidos);
+ /*renderizarMundial(equipos, partidos);*/
 }
 
 export async function cargarINDEXC(){
