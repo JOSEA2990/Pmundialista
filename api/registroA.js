@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const datos = Object.fromEntries(form);
 
     const respuesta = await fetch(
-      "https://script.google.com/macros/s/AKfycbxyrSg2PkETwI9ZxyBWebngL14g9bPG--nvmJzGYt0eegI0E-fhvmTGy1ihcSBxhtANgA/exec",
+      "https://script.google.com/macros/s/AKfycbx4FlB1z3KLWH3fSbQdMby57AwcwB1yMvOcR8ahx-_QbubK1cDXmnJPSmfbK-Y8tyj5ag/exec",
       {
         method:"POST",
         body:new URLSearchParams(datos)

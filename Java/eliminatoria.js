@@ -51,7 +51,7 @@ function pintarEliminatorias(partidos){
    cont.innerHTML+=`
    <div class="partido-elim">
 
-     <div class="equipo">${p.local}</div>
+     <div class="equipos">${p.local}</div>
 
      <div class="marcador">
        <input type="number">
@@ -59,7 +59,7 @@ function pintarEliminatorias(partidos){
        <input type="number">
      </div>
 
-     <div class="equipo">${p.visitante}</div>
+     <div class="equipos">${p.visitante}</div>
 
    </div>
    `;

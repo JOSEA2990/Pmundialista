@@ -1,4 +1,4 @@
-import { obtenerClasificados } from "./clasificacion.js";
+import { obtenerClasificados, crearMapaClasificados, generarPartidosFijos } from "./clasificacion.js";
 import { pintarTablaTerceros } from "./terceros.js";
 import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";
 import { generarCruces, pintarOctavos }from "./clasificacion.js";
@@ -162,6 +162,7 @@ function recalcularTablas(){
    2. Obtener clasificados
 ======================= */
  const clasificados = obtenerClasificados(grupos);
+ const mapaClasificados = crearMapaClasificados(clasificados);
 
 /* =======================
    3. Tabla terceros
@@ -174,16 +175,35 @@ function recalcularTablas(){
  /*const partidosElim =
    generarPrimeraEliminatoria(clasificados);*/
 
-   const tercerosGrupos =
+   /*const tercerosGrupos =
    clasificados.mejoresTerceros.map(t => t.grupo);
 
    const cruces =
    generarCruces(
       clasificados.primeros,
       tercerosGrupos
-   );
+   );*/
 
-pintarOctavos(cruces);
+const codigo = obtenerCodigoTerceros(clasificados.mejoresTerceros);
+
+const filaFIFA = buscarFilaINDEXC(codigo);
+
+const cruces = generarCrucesDesdeINDEXC(filaFIFA);
+
+const partidosFijos = generarPartidosFijos();
+const partidosVariables = generarCrucesDesdeINDEXC(filaFIFA);
+
+/* 🔥 OCTAVOS COMPLETOS */
+const octavos = [
+   ...partidosFijos,
+   ...partidosVariables
+];
+
+/* ORDEN FIFA */
+octavos.sort((a,b)=>a.id-b.id);
+
+
+pintarOctavos(octavos,mapaClasificados);
 
 /* =======================
    5. Pintar octavos
@@ -254,6 +274,21 @@ function pintarTablas(grupos){
    });
  }
 }
+
+/*xport function autoResultadosPrueba(){
+
+   const local = querySelectorAll(".gol-local");
+   const visitante = querySelectorAll(".gol-visitante");   
+
+   local.forEach(i => i.value = 2);
+   visitante.forEach(i => i.value = 1);
+
+   // recalcula todo
+   recalcularTablas();
+}*/
+
+import { obtenerCodigoTerceros } from "./utils.js";
+import { buscarFilaINDEXC, generarCrucesDesdeINDEXC } from "./clasificacion.js";
 
 export {
  renderizarMundial,

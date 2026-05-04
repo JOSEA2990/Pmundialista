@@ -138,14 +138,33 @@ import { obtenerClasificados } from "./clasificacion.js";
 import { pintarTablaTerceros } from "./terceros.js";
 import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";
 
+import { cargarINDEXC } from "./api.js";
+
+export let INDEXC = [];
+
+/*export async function iniciarApp(){
+
+}*/
+
 async function iniciarApp(){
 
  const {equipos, partidos} = await cargarMundial();
 
  renderizarMundial(equipos, partidos);
+
+  INDEXC = await cargarINDEXC();
+
+ await cargarMundial();
 }
 
 iniciarApp();
+
+/*setTimeout(()=>{
+   autoResultadosPrueba();
+},500);*/
+
+
+
 
 /*function llenarOctavos(c){
 
