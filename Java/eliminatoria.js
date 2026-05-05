@@ -1,4 +1,4 @@
-function generarPrimeraEliminatoria(datos){
+/*function generarPrimeraEliminatoria(datos){
 
  const P=datos.posiciones;
  const T=datos.mejoresTerceros;
@@ -38,9 +38,9 @@ function generarPrimeraEliminatoria(datos){
  {id:88, local:P.D.segundo.equipo, visitante:P.G.segundo.equipo}
 
  ];
-}
+}*/
 
-function pintarEliminatorias(partidos){
+/*function pintarEliminatorias(partidos){
 
  const cont=document.getElementById("eliminatorias");
  cont.innerHTML="";
@@ -63,9 +63,46 @@ function pintarEliminatorias(partidos){
    </div>
    `;
  });
-}
+}*/
 
-export {
- generarPrimeraEliminatoria,
- pintarEliminatorias
-};
+export function pintarEliminatorias(partidos, clasificados){
+
+ const cont = document.getElementById("eliminatorias");
+
+ cont.innerHTML="<h2>Fase Eliminatoria</h2>";
+
+ partidos.forEach(p=>{
+
+   const local =
+     resolverEquipo(p.local,clasificados);
+
+   const visitante =
+     resolverEquipo(p.visitante,clasificados);
+
+   cont.innerHTML+=`
+   <div class="partido-eliminatoria">
+
+     <div class="numero">
+       Partido ${p.id}
+     </div>
+
+     <span>${local?.equipo || "Por definir"}</span>
+
+     <input type="number"
+       class="golLocal"
+       data-id="${p.id}">
+
+     -
+
+     <input type="number"
+       class="golVisitante"
+       data-id="${p.id}">
+
+     <span>${visitante?.equipo || "Por definir"}</span>
+
+   </div>
+   `;
+ });
+
+activarResultados(clasificados, partidos);
+}

@@ -156,6 +156,33 @@ async function iniciarApp(){
 
 iniciarApp();
 
+function simularResultadosGrupos(){
+
+ document
+   .querySelectorAll(".partido-grupo")
+   .forEach(partido=>{
+
+     const gl =
+       partido.querySelector(".gol-local");
+
+     const gv =
+       partido.querySelector(".gol-visitante");
+
+     if(gl && gv){
+        gl.value = 2;
+        gv.value = 1;
+     }
+   });
+
+ /* 🔥 recalcular TODO el mundial 
+ recalcularTablas();*/
+}
+
+document
+ .getElementById("simularResultados")
+ ?.addEventListener("click",
+     simularResultadosGrupos);
+
 /*setTimeout(()=>{
    autoResultadosPrueba();
 },500);*/

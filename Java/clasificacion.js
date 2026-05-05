@@ -65,7 +65,7 @@ export function pintarOctavos(cruces, clasificados){
    const visitante = clasificados[c.visitante];
 
    contenedor.innerHTML += `
-   <div class="partido-eliminatoria">
+   <div class="partido-eliminatoria" data-partido="${c.id}">
 
       <div class="numero">
          Partido ${numero}
@@ -76,11 +76,11 @@ export function pintarOctavos(cruces, clasificados){
 
       <input type="number"
          class="golLocal"
-         data-id="${i}">
-      -
+         data-partido="${c.id}">
+      <span>-</span>
       <input type="number"
          class="golVisitante"
-         data-id="${i}">
+         data-partido="${c.id}">
 
       <span class="visitante">${c.visitante} ${visitante.equipo}</span>
       </div>
@@ -89,14 +89,16 @@ export function pintarOctavos(cruces, clasificados){
       <label>
         <input type="checkbox"
            class="penales"
-           data-id="${i}">
+           data-partido="${i}">
         Penales
       </label>
 
       <div class="penales-box hidden">
-         <input type="number" placeholder="Pen L">
-         -
-         <input type="number" placeholder="Pen V">
+         <input type="number" placeholder="Pen L" class="penLocal"
+         data-partido="${c.id}">
+         <span>-</span>
+         <input type="number" placeholder="Pen V" class="penVisitante"
+         data-partido="${c.id}">
       </div>
 
    </div>
@@ -104,9 +106,10 @@ export function pintarOctavos(cruces, clasificados){
  });
 
  activarPenales();
+ activarActualizacionFases();
 }
 
-function activarPenales(){
+/*export function activarPenales(){
 
  document
   .querySelectorAll(".penales")
@@ -125,7 +128,91 @@ function activarPenales(){
      );
    });
  });
+}*/
+
+/*export function activarActualizacionFases(){
+
+ document
+   .querySelectorAll(
+     ".golLocal, .golVisitante, .penLocal, .penVisitante"
+   )
+   .forEach(input=>{
+
+     input.addEventListener("input",()=>{
+        importarFases();
+     });
+  
+
+   });
+}*/
+
+let penalesListenerActivo = false;
+
+export function activarPenales(){
+
+ if(penalesListenerActivo) return;
+ penalesListenerActivo = true;
+
+ document.addEventListener("change", e => {
+
+   if(!e.target.classList.contains("penales")) return;
+
+   const box =
+     e.target
+      .closest(".partido-eliminatoria")
+      .querySelector(".penales-box");
+
+   if(!box) return;
+
+   box.classList.toggle(
+     "hidden",
+     !e.target.checked
+   );
+
+ });
+
 }
+
+let eventosActivos = false;
+
+export function activarActualizacionFases(){
+
+ if(eventosActivos) return;
+ eventosActivos = true;
+
+ document.addEventListener("change",(e)=>{
+
+  if(!e.target.closest(".partido-eliminatoria"))
+      return;
+
+   if(
+      e.target.classList.contains("golLocal") ||
+      e.target.classList.contains("golVisitante") ||
+      e.target.classList.contains("penLocal") ||
+      e.target.classList.contains("penVisitante")
+   ){
+      importarFases();
+   }
+
+ });
+}
+let bloqueandoRender = false;
+
+export async function importarFases(){
+
+   if(bloqueandoRender) return;
+
+   bloqueandoRender = true;
+
+   const mod = await import("./fasesFinales.js");
+
+   mod.pintarFasesFinales();
+
+   bloqueandoRender = false;
+}
+
+activarPenales();
+activarActualizacionFases();
 
 export function obtenerClasificados(tablasGrupos){
 
@@ -297,3 +384,4 @@ export function generarCrucesDesdeINDEXC(fila){
 
  return cruces;
 }
+

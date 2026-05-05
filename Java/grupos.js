@@ -5,6 +5,7 @@ import { pintarTablaTerceros } from "./terceros.js";
 import { obtenerCodigoTerceros } from "./utils.js";
 import { buscarFilaINDEXC, generarCrucesDesdeINDEXC, pintarOctavos} from "./clasificacion.js";
 
+
 function renderizarMundial(equipos, partidos){
 
  const contenedor=document.getElementById("mundial");
@@ -203,7 +204,6 @@ const octavos = [
 
 /* ORDEN FIFA */
 octavos.sort((a,b)=>a.id-b.id);
-
 
 pintarOctavos(octavos,mapaClasificados);
 
