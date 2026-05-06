@@ -12,7 +12,7 @@ body{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  padding:15px;
+  padding:5px;
 }
 
 /* tarjeta grupo */
@@ -65,9 +65,20 @@ body{
 /* tabla clasificación */
 .tabla{
   margin-top:10px;
-  width:100%;
+  width: 100%;
   font-size:14px;
   border-collapse:collapse;
+  align-items: center;
+}
+
+.AjusteTabla{
+  max-width:600px;
+    margin:40px auto;
+    width:100%;
+    border-collapse:collapse;
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+    border-radius:10px;
+    overflow:hidden;
 }
 
 .tabla td,.tabla th{
@@ -239,8 +250,8 @@ body{
 #dieciseis{
     max-width:600px;
     margin:40px auto;
+    text-align:center;
 }
-
 /* tarjeta partido */
 .partido-eliminatoria{
     background:#fff;
@@ -275,20 +286,27 @@ body{
 
 .local{
     color:#0b5ed7;
-    text-align: left;
+   justify-self:end;
+    text-align:right;
+    font-weight:600;
+    
 }
 
 .visitante{
     color:#dc3545;
-    text-align: left;
+    justify-self:start;
+    text-align:left;
+    font-weight:600;
 }
 
 .golLocal{
-    width: 100%;
+    width:45px;
+    text-align:center;
 }
 
 .golVisitante{
-    text-align: center;
+    width:45px;
+    text-align:center;
 }
 
 span{
@@ -319,13 +337,52 @@ span{
 }
 
 .linea-equipos{
-    display: flex;
-    justify-content: center;   /* centra horizontal */
-    align-items: center;       /* centra vertical */
-    gap: 10px;                 /* espacio entre elementos */
-    text-align: center;
-    width: 100%;
-    font-size: 12px;
+    display:grid;
+    grid-template-columns:
+        1fr   /* equipo local */
+        50px  /* gol local */
+        20px  /* guion */
+        50px  /* gol visitante */
+        1fr;  /* equipo visitante */
+
+    align-items:center;
+    justify-items:center;
+    gap:8px;
+    width:100%;
 }
 
 label{font-size: 12px;}
+
+#campeonBox{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+}
+
+.campeon-card{
+    background:linear-gradient(135deg,#ffd700,#ffb700);
+    padding:25px 40px;
+    border-radius:14px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:#222;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+    animation: aparecerCampeon .6s ease;
+}
+
+.nombre-campeon{
+    font-size:32px;
+    margin-top:10px;
+}
+
+@keyframes aparecerCampeon{
+    from{
+        transform:scale(.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}

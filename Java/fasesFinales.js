@@ -1,8 +1,8 @@
-import { activarActualizacionFases, activarPenales } from "./clasificacion.js";
+/*import { activarActualizacionFases, activarPenales } from "./clasificacion.js";
 
 export const BRACKET_FIFA = [
 
- /* OCTAVOS */
+ OCTAVOS 
  {id:89, local:74, visitante:77},
  {id:90, local:73, visitante:75},
  {id:91, local:76, visitante:78},
@@ -12,24 +12,24 @@ export const BRACKET_FIFA = [
  {id:95, local:86, visitante:88},
  {id:96, local:85, visitante:87},
 
- /* CUARTOS */
+ /* CUARTOS 
  {id:97, local:89, visitante:90},
  {id:98, local:93, visitante:94},
  {id:99, local:91, visitante:92},
  {id:100, local:95, visitante:96},
 
- /* SEMI */
+ /* SEMI 
  {id:101, local:97, visitante:98},
  {id:102, local:99, visitante:100},
 
- /* TERCER LUGAR */
+ /* TERCER LUGAR 
  {id:103, local:"P101", visitante:"P102"},
 
- /* FINAL */
+ /* FINAL 
 {id:104, local:101, visitante:102}
-];
+];*/
 
-export function obtenerGanador(id){
+/*export function obtenerGanador(id){
 
   const gl =
    document.querySelector(
@@ -52,7 +52,7 @@ export function obtenerGanador(id){
  if(l>v) return "L";
  if(v>l) return "V";
 
- /* EMPATE → PENALES */
+ /* EMPATE → PENALES 
 
 const pl =
    document.querySelector(
@@ -73,9 +73,9 @@ const pl =
  if(penV>penL) return "V";
 
  return null;
-}
+}*/
 
-function resolverReferencia(ref){
+/*function resolverReferencia(ref){
 
  if(typeof ref==="number"){
 
@@ -104,9 +104,9 @@ function resolverReferencia(ref){
 
  return perdedor?.innerText || "Por definir";
 }
-}
+}*/
 
-export function pintarFasesFinales(){
+/*export function pintarFasesFinales(){
 
  const cont = document.getElementById("fases-finales");
 
@@ -123,10 +123,10 @@ export function pintarFasesFinales(){
 
    if(!fase) return; // ← CLAVE
 
-   /* CAMBIO DE FASE */
+   /* CAMBIO DE FASE 
    if(fase!==faseActual){
 
-     /* pintar fase anterior */
+     /* pintar fase anterior 
      if(htmlFase!==""){
         cont.innerHTML += htmlFase;
         htmlFase="";
@@ -198,7 +198,7 @@ export function pintarFasesFinales(){
       cont.innerHTML += htmlFase;
    }*/
 
-      /* ✅ cerrar última fase */
+      /* ✅ cerrar última fase 
 if(htmlFase!==""){
    cont.innerHTML += "</div>";
 }
@@ -208,18 +208,18 @@ if(htmlFase!==""){
  if(htmlFase!==""){
    cont.innerHTML+=htmlFase;
 }
-}
+}*/
 
-function obtenerNombreFase(id){
+/*function obtenerNombreFase(id){
 
  if(id<=96) return "Octavos de Final";
  /*if(id<=100) return "Cuartos de Final";
  if(id<=102) return "Semifinales";
  if(id===103) return "Tercer Lugar";
- if(id===104) return "Final";*/
-}
+ if(id===104) return "Final";
+}*/
 
-function limpiarNombreEquipo(nombre){
+/* limpiarNombreEquipo(nombre){
 
  if(!nombre) return "Por definir";
 
@@ -252,12 +252,12 @@ function faseDisponible(id){
    return faseCompleta(97,100);
 
  if(id===103 || id===104)
-   return faseCompleta(101,102);*/
+   return faseCompleta(101,102);
 
  return false;
-}
+}*/
 
-function partidoCompleto(partido){
+/*function partidoCompleto(partido){
 
    const gLocal =
       document.querySelector(`#gL-${partido.id}`)?.value;
@@ -266,4 +266,4 @@ function partidoCompleto(partido){
       document.querySelector(`#gV-${partido.id}`)?.value;
 
    return gLocal !== "" && gVisit !== "";
-}
+}*/

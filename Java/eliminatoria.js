@@ -65,7 +65,7 @@
  });
 }*/
 
-export function pintarEliminatorias(partidos, clasificados){
+/*export function pintarEliminatorias(partidos, clasificados){
 
  const cont = document.getElementById("eliminatorias");
 
@@ -105,4 +105,4 @@ export function pintarEliminatorias(partidos, clasificados){
  });
 
 activarResultados(clasificados, partidos);
-}
+}*/

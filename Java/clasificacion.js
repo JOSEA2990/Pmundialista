@@ -686,6 +686,7 @@ export function recalcularBracketCompleto(){
  if(contenedor) contenedor.innerHTML="";*/
 
  construirFases(resultados);
+ mostrarCampeon(resultados);
 
 }
 
@@ -703,6 +704,29 @@ p.querySelector(".local").textContent =
 
 p.querySelector(".visitante").textContent =
    limpiarNombreEquipo(visitante);
+
+}
+
+function mostrarCampeon(resultados){
+
+   const box = document.getElementById("campeonBox");
+   if(!box) return;
+
+   const final = resultados[104];
+
+   if(!final){
+      box.innerHTML="";
+      return;
+   }
+
+   box.innerHTML = `
+      <div class="campeon-card">
+         🏆 CAMPEÓN DEL MUNDIAL
+         <div class="nombre-campeon">
+            ${final.ganador}
+         </div>
+      </div>
+   `;
 }
 /*export function activarActualizacionFases(){
 
@@ -779,7 +803,7 @@ p.querySelector(".visitante").textContent =
    if(!id) return;
    /*if(!id || id>88) return; // SOLO 16avos*/
 
-   /*const local =
+/*const local =
      p.querySelector(".equipo-local, .local")
       ?.textContent.trim();
 

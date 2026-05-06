@@ -1,10 +1,7 @@
 import { obtenerClasificados, crearMapaClasificados, generarPartidosFijos } from "./clasificacion.js";
 import { pintarTablaTerceros } from "./terceros.js";
-/*import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";*/
-/*import { generarCruces, pintarOctavos }from "./clasificacion.js";*/
 import { obtenerCodigoTerceros } from "./utils.js";
 import { buscarFilaINDEXC, generarCrucesDesdeINDEXC, pintardieciseis} from "./clasificacion.js";
-
 
 function renderizarMundial(equipos, partidos){
 
@@ -277,6 +274,14 @@ function pintarTablas(grupos){
  }
 }
 
+export {
+ renderizarMundial,
+ recalcularTablas,
+ iniciarEquipo,
+ actualizarStats,
+ pintarTablas
+};
+
 /*xport function autoResultadosPrueba(){
 
    const local = querySelectorAll(".gol-local");
@@ -288,12 +293,5 @@ function pintarTablas(grupos){
    // recalcula todo
    recalcularTablas();
 }*/
-
-
-export {
- renderizarMundial,
- recalcularTablas,
- iniciarEquipo,
- actualizarStats,
- pintarTablas
-};
+/*import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";*/
+/*import { generarCruces, pintarOctavos }from "./clasificacion.js";*/

@@ -39,12 +39,8 @@ const URL="https://script.google.com/macros/s/AKfycbx4FlB1z3KLWH3fSbQdMby57AwcwB
 
 }
 
-
 import { cargarMundial } from "./api.js";
 import { renderizarMundial } from "./grupos.js";
-/*import { obtenerClasificados } from "./clasificacion.js";*/
-/*import { pintarTablaTerceros } from "./terceros.js";*/
-/*import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";*/
 import { cargarINDEXC } from "./api.js";
 
 export let INDEXC = [];
