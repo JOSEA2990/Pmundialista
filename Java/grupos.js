@@ -3,7 +3,7 @@ import { pintarTablaTerceros } from "./terceros.js";
 /*import { generarPrimeraEliminatoria, pintarEliminatorias } from "./eliminatoria.js";*/
 /*import { generarCruces, pintarOctavos }from "./clasificacion.js";*/
 import { obtenerCodigoTerceros } from "./utils.js";
-import { buscarFilaINDEXC, generarCrucesDesdeINDEXC, pintarOctavos} from "./clasificacion.js";
+import { buscarFilaINDEXC, generarCrucesDesdeINDEXC, pintardieciseis} from "./clasificacion.js";
 
 
 function renderizarMundial(equipos, partidos){
@@ -123,7 +123,7 @@ function renderizarMundial(equipos, partidos){
 
  document.querySelectorAll(".gol-local, .gol-visitante")
  .forEach(input=>{
-   input.addEventListener("input",recalcularTablas);
+   input.addEventListener("change",recalcularTablas);
  });
 
 }
@@ -197,15 +197,15 @@ const partidosFijos = generarPartidosFijos();
 const partidosVariables = generarCrucesDesdeINDEXC(filaFIFA);
 
 /* 🔥 OCTAVOS COMPLETOS */
-const octavos = [
+const dieciseis = [
    ...partidosFijos,
    ...partidosVariables
 ];
 
 /* ORDEN FIFA */
-octavos.sort((a,b)=>a.id-b.id);
+dieciseis.sort((a,b)=>a.id-b.id);
 
-pintarOctavos(octavos,mapaClasificados);
+pintardieciseis(dieciseis,mapaClasificados);
 
 /* =======================
    5. Pintar octavos

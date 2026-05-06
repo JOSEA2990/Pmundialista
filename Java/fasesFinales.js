@@ -26,8 +26,7 @@ export const BRACKET_FIFA = [
  {id:103, local:"P101", visitante:"P102"},
 
  /* FINAL */
- {id:104, local:101, visitante:102}
-
+{id:104, local:101, visitante:102}
 ];
 
 export function obtenerGanador(id){
@@ -158,7 +157,6 @@ export function pintarFasesFinales(){
             ${limpiarNombreEquipo(local)}
          </span>
 
-         <div class="marcador">
             <input type="number"
               class="golLocal"
               data-partido="${p.id}">
@@ -166,7 +164,6 @@ export function pintarFasesFinales(){
             <input type="number"
               class="golVisitante"
               data-partido="${p.id}">
-         </div>
 
          <span class="visitante">
             ${limpiarNombreEquipo(visitante)}
@@ -216,10 +213,10 @@ if(htmlFase!==""){
 function obtenerNombreFase(id){
 
  if(id<=96) return "Octavos de Final";
- if(id<=100) return "Cuartos de Final";
+ /*if(id<=100) return "Cuartos de Final";
  if(id<=102) return "Semifinales";
  if(id===103) return "Tercer Lugar";
- if(id===104) return "Final";
+ if(id===104) return "Final";*/
 }
 
 function limpiarNombreEquipo(nombre){
@@ -251,11 +248,22 @@ function faseDisponible(id){
  if(id<=100)
    return faseCompleta(89,96);
 
- if(id<=102)
+ /*if(id<=102)
    return faseCompleta(97,100);
 
  if(id===103 || id===104)
-   return faseCompleta(101,102);
+   return faseCompleta(101,102);*/
 
  return false;
+}
+
+function partidoCompleto(partido){
+
+   const gLocal =
+      document.querySelector(`#gL-${partido.id}`)?.value;
+
+   const gVisit =
+      document.querySelector(`#gV-${partido.id}`)?.value;
+
+   return gLocal !== "" && gVisit !== "";
 }

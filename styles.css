@@ -236,7 +236,7 @@ body{
    ELIMINATORIAS FIFA STYLE
 ========================= */
 
-#octavos{
+#dieciseis{
     max-width:600px;
     margin:40px auto;
 }
@@ -264,22 +264,36 @@ body{
 }
 
 /* fila equipos */
-.linea-equipos{
-    align-items:center;
+.linea-equipos2{
     display:grid;
     font-size:12px;
     font-weight:bold;
-    margin:8px 0;
+    margin:10px 0;
     max-width: 120px;
     min-width: 100px;
 }
 
 .local{
     color:#0b5ed7;
+    text-align: left;
 }
 
 .visitante{
     color:#dc3545;
+    text-align: left;
+}
+
+.golLocal{
+    width: 100%;
+}
+
+.golVisitante{
+    text-align: center;
+}
+
+span{
+    text-align: left;
+
 }
 
 .vs{
@@ -287,22 +301,31 @@ body{
     margin:0 10px;
 }
 
-#fases-finales{
-  width:100%;
-   display:flex;
-   flex-direction:column;
-   align-items:center;
- margin-top:40px;
+#fasesFinales{
+ max-width:600px;
+    margin:40px auto;
 }
 
 .fase{
         text-align: center;
         align-items: center;
- max-width:600px;
  margin-bottom:40px;
+   max-width:600px;
 }
 
 .titulo-fase{
  text-align:center;
  margin:30px 0 20px;
 }
+
+.linea-equipos{
+    display: flex;
+    justify-content: center;   /* centra horizontal */
+    align-items: center;       /* centra vertical */
+    gap: 10px;                 /* espacio entre elementos */
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+}
+
+label{font-size: 12px;}
