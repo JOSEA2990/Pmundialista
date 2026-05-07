@@ -69,7 +69,7 @@ function renderizarMundial(equipos, partidos){
     /*console.log("GRUPO PARTIDO:", "["+partido[2]+"]","["+partido[3]+"]" );*/
 
      html+=`
-     <div class="partido-grupo" data-grupo="${grupo}">
+     <div class="partido-grupo" data-grupo="${grupo}" data-idgrupo="${partido[0]}">
 
        <div class="equipo">${partido[2]}</div>
 
@@ -189,6 +189,10 @@ const codigo = obtenerCodigoTerceros(clasificados.mejoresTerceros);
 const filaFIFA = buscarFilaINDEXC(codigo);
 
 /*const cruces = generarCrucesDesdeINDEXC(filaFIFA);*/
+if(!filaFIFA){
+   console.log("⚠️ combinación FIFA aún incompleta");
+   return;
+}
 
 const partidosFijos = generarPartidosFijos();
 const partidosVariables = generarCrucesDesdeINDEXC(filaFIFA);

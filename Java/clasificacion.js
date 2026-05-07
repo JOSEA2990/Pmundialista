@@ -450,6 +450,7 @@ export function generarCrucesDesdeINDEXC(fila){
 }
 
 import { BRACKET_FIFA } from "./bracketFIFA.js";
+import { guardarUsuario } from "./app.js";
 
 export function generarBracketAutomatico(){
 
@@ -498,6 +499,8 @@ export function generarBracketAutomatico(){
   });
 
   construirFases(resultados);
+  /* 🔥 GUARDAR AUTOMÁTICO */
+   guardarUsuario();
 }
 
 function limpiarNombreEquipo(nombre){
@@ -559,6 +562,9 @@ function crearPartidoFase(id, local, visitante, contenedor){
 
    </div>
  `);
+
+   /* 🔥 GUARDAR AUTOMÁTICO */
+   guardarUsuario();
 }
 
 function obtenerContenedorFase(nombre,id){
@@ -660,7 +666,8 @@ function construirFases(resultados){
     });
 
   });
-
+  /* 🔥 GUARDAR AUTOMÁTICO */
+   guardarUsuario();
 }
 activarPenales();
 
@@ -687,6 +694,8 @@ export function recalcularBracketCompleto(){
 
  construirFases(resultados);
  mostrarCampeon(resultados);
+ /* 🔥 GUARDAR AUTOMÁTICO */
+   guardarUsuario();
 
 }
 
@@ -727,6 +736,9 @@ function mostrarCampeon(resultados){
          </div>
       </div>
    `;
+
+   /* 🔥 GUARDAR AUTOMÁTICO */
+   guardarUsuario();
 }
 /*export function activarActualizacionFases(){
 

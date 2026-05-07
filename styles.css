@@ -12,7 +12,7 @@ body{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  padding:5px;
+  padding:2px;
 }
 
 /* tarjeta grupo */
@@ -94,8 +94,12 @@ body{
   }
 
   .Login{
-    justify-content:center;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(226, 219, 219);
+    padding: 5px;
   }
+
 
   .equipo{
     font-size: 0.5rem;
@@ -130,9 +134,10 @@ body{
 }
 
 .Login{
-    display:flex;
-    align-items:center;
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(226, 219, 219);
+    padding: 5px;
 }
 
 .terceros tr.clasifica{
