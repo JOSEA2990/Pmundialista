@@ -46,6 +46,7 @@ import { cargarMundial } from "./api.js";
 import { cargarDatosUsuario } from "./api.js";
 import { recalcularTablas } from "./grupos.js";
 import { recalcularBracketCompleto } from "./clasificacion.js";
+import { generarBracketAutomatico } from "./clasificacion.js";
 
 export let INDEXC = [];
 
@@ -136,11 +137,15 @@ async function reconstruirMundialUsuario(datos){
     4. RESTAURAR ELIMINATORIAS
  ========================= */
 
- setTimeout(()=>{
+setTimeout(()=>{
 
    restaurarEliminatorias(datos);
 
- },500);
+   generarBracketAutomatico("restaurar");
+
+   recalcularBracketCompleto();
+
+},500);
 
 }
 
@@ -261,6 +266,20 @@ document.addEventListener("change", e=>{
 
 });
 
+document.addEventListener("input", e => {
+
+ if(
+   e.target.classList.contains("golLocal") ||
+   e.target.classList.contains("golVisitante") ||
+   e.target.classList.contains("gol-local") ||
+   e.target.classList.contains("gol-visitante")
+ ){
+    guardarUsuario();
+ }
+
+});
+
+
 function activarAutoGuardado(){
 
  document.addEventListener(
@@ -345,7 +364,6 @@ document.getElementById("estadoGuardado")
  console.log("✅ Guardado automático");
 
 }
-
 
 
 /*setTimeout(()=>{

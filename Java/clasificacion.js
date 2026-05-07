@@ -207,8 +207,16 @@ export function pintardieciseis(cruces, clasificados){
  const contenedor =
    document.getElementById("dieciseis");
 
- contenedor.innerHTML =
-   "<h2>Dieciseiavos de Final</h2>";
+ /*contenedor.innerHTML =
+   "<h2>Dieciseiavos de Final</h2>";*/
+
+ if(!contenedor.dataset.renderizado){
+
+   contenedor.innerHTML =
+      "<h2>Dieciseisavos de Final</h2>";
+
+   contenedor.dataset.renderizado = "true";
+}
 
  cruces.forEach((c,i)=>{
  
@@ -217,6 +225,9 @@ export function pintardieciseis(cruces, clasificados){
    const local = clasificados[c.local];
 
    const visitante = clasificados[c.visitante];
+
+  if(document.querySelector(`[data-partido="${c.id}"]`))
+   return;
 
    contenedor.innerHTML += `
    <div class="partido-eliminatoria" data-partido="${c.id}">
@@ -235,10 +246,8 @@ export function pintardieciseis(cruces, clasificados){
       <input type="number"
          class="golVisitante"
          data-partido="${c.id}">
-
       <span class="visitante">${c.visitante} ${visitante.equipo}</span>
       </div>
-
 
       <label>
         <input type="checkbox"
@@ -250,20 +259,23 @@ export function pintardieciseis(cruces, clasificados){
       <div class="penales-box hidden">
          <input type="number" placeholder="Pen L" class="penLocal"
          data-partido="${c.id}">
+
+
          <span>-</span>
          <input type="number" placeholder="Pen V" class="penVisitante"
          data-partido="${c.id}">
+
       </div>
 
    </div>
    `;
  });
 
- generarBracketAutomatico();
+ console.log("entro a 16avo")
+ /*generarBracketAutomatico();*/
 }
 
 let penalesListenerActivo = false;
-
 export function activarPenales(){
 
  if(penalesListenerActivo) return;
@@ -452,19 +464,21 @@ export function generarCrucesDesdeINDEXC(fila){
 import { BRACKET_FIFA } from "./bracketFIFA.js";
 import { guardarUsuario } from "./app.js";
 
-export function generarBracketAutomatico(){
+export function generarBracketAutomatico(modo="nuevo"){
 
+  /*const { restaurar = false } = config;*/
    /*const contenedor = document.getElementById("fasesFinales");
    if(contenedor) contenedor.innerHTML="";*/
-
-  const resultados = {};
-
-  /* ===== LEER 16AVOS EXISTENTES ===== */
+  /* ===== LEER 16AVOS EXISTENTES ===== *
+  const resultadosPrevios = leerResultadosActuales();
+  const primeraCarga = !bracketYaInicializado();*/
 
   const partidos =
     document.querySelectorAll(
       "#dieciseis .partido-eliminatoria"
     );
+
+     const resultados = {};
 
   partidos.forEach(p => {
 
@@ -484,24 +498,28 @@ export function generarBracketAutomatico(){
 
     const gv =
       p.querySelector(".golVisitante");
-
-    /* marcador automatico */
-    if(gl && gv){
-       gl.value = 1;
-       gv.value = 0;
-    }
+    
+      /* SOLO usuario nuevo */
+/*if(gl && gv && modo === "nuevo"){
+   gl.value = 1;
+   gv.value = 0;
+}*/
 
     resultados[id]={
       ganador: local,
       perdedor: visitante
     };
-
   });
 
   construirFases(resultados);
-  /* 🔥 GUARDAR AUTOMÁTICO */
-   guardarUsuario();
+
+  /* ✅ RESTAURA DATOS REALES 
+  restaurarResultados(resultadosPrevios);*/
+
+  /*input.addEventListener("input", guardarUsuario);*/
 }
+
+/*localStorage.setItem("bracketInicializado","true");*/
 
 function limpiarNombreEquipo(nombre){
 
@@ -564,7 +582,7 @@ function crearPartidoFase(id, local, visitante, contenedor){
  `);
 
    /* 🔥 GUARDAR AUTOMÁTICO */
-   guardarUsuario();
+   /*guardarUsuario();*/
 }
 
 function obtenerContenedorFase(nombre,id){
@@ -590,16 +608,6 @@ function obtenerContenedorFase(nombre,id){
 }
 
 function construirFases(resultados){
-
-  /* ===== ORDEN CORRECTO ===== */
-
-  /*const orden = [
-    [89,90,91,92,93,94,95,96], // OCTAVOS
-    [97,98,99,100],             // CUARTOS
-    [101,102],                  // SEMIS
-    [103],                      // TERCER PUESTO
-    [104]                       // FINAL
-  ];*/
 
   const fases = [
  {nombre:"Octavos de Final", id:"octavos", partidos:[89,90,91,92,93,94,95,96]},
@@ -667,7 +675,7 @@ function construirFases(resultados){
 
   });
   /* 🔥 GUARDAR AUTOMÁTICO */
-   guardarUsuario();
+   /*guardarUsuario();*/
 }
 activarPenales();
 
@@ -695,7 +703,7 @@ export function recalcularBracketCompleto(){
  construirFases(resultados);
  mostrarCampeon(resultados);
  /* 🔥 GUARDAR AUTOMÁTICO */
-   guardarUsuario();
+   /*guardarUsuario();*/
 
 }
 
@@ -738,8 +746,54 @@ function mostrarCampeon(resultados){
    `;
 
    /* 🔥 GUARDAR AUTOMÁTICO */
-   guardarUsuario();
+   /*guardarUsuario();*/
 }
+
+function leerResultadosActuales(){
+
+  const mapa = {};
+
+  document
+    .querySelectorAll(".partido-eliminatoria")
+    .forEach(p=>{
+
+      const id = Number(p.dataset.partido);
+
+      mapa[id] = {
+        gl: p.querySelector(".golLocal")?.value || "",
+        gv: p.querySelector(".golVisitante")?.value || ""
+      };
+
+    });
+
+  return mapa;
+}
+
+function restaurarResultados(mapa){
+
+  document
+    .querySelectorAll(".partido-eliminatoria")
+    .forEach(p=>{
+
+      const id = Number(p.dataset.partido);
+      console.log(mapa[id]);
+
+      if(!mapa[id]) return;
+
+      const gl = p.querySelector(".golLocal");
+      const gv = p.querySelector(".golVisitante");
+
+      if(gl) gl.value = mapa[id].gl;
+      if(gv) gv.value = mapa[id].gv;
+
+    });
+
+}
+
+function bracketYaInicializado(){
+  return localStorage.getItem("bracketInicializado") === "true";
+}
+
 /*export function activarActualizacionFases(){
 
  document.addEventListener("input", e=>{
