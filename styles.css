@@ -1,7 +1,33 @@
 body{
  font-family:Arial;
- padding:20px;
+ padding:5px;
 }
+
+.cajaS{
+    background: rgba(255, 255, 255);
+    height: 14vh;
+    width: 100%;
+}
+.Fijo{
+    background: rgba(224, 192, 11, 0.9);
+    border-bottom: 1px solid rgba(5, 5, 5, 0.9);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    padding: 5px;
+    width: 100%;
+    box-shadow: 5px 5px 5px 5px rgba(224, 192, 11, 0.9);
+}
+
+h1,h2{
+  font-size: 2vh;
+  margin:10px;
+}
+
+.boxsimulador{
+    padding: 10px;
+}
+
 .group{
  border:1px solid #ccc;
  margin:10px;
@@ -99,7 +125,6 @@ body{
     background-color: rgb(226, 219, 219);
     padding: 5px;
   }
-
 
   .equipo{
     font-size: 0.5rem;
@@ -374,6 +399,7 @@ label{font-size: 12px;}
     color:#222;
     box-shadow:0 8px 25px rgba(0,0,0,.25);
     animation: aparecerCampeon .6s ease;
+    margin-bottom: 10px;
 }
 
 .nombre-campeon{
@@ -390,4 +416,14 @@ label{font-size: 12px;}
         transform:scale(1);
         opacity:1;
     }
+}
+
+
+/* barra inferior */
+footer {
+    background: #1f2a38;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
 }

@@ -321,6 +321,9 @@ export async function guardarUsuario(){
 
  });
 
+document.getElementById("estadoGuardado")
+.innerText = "Guardando...";
+
  const datos2 = {
     tipo:"guardar",
     usuario:usuarioID,
@@ -337,6 +340,8 @@ export async function guardarUsuario(){
    body:JSON.stringify(datos2)
  });
 
+ document.getElementById("estadoGuardado")
+.innerText = "✅ Guardado";
  console.log("✅ Guardado automático");
 
 }
