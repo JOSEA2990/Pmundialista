@@ -3,8 +3,9 @@
 <head>
    <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polla Mundialista 2026</title>
+  <title>Porra Mundialista 2026</title>
   <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
@@ -13,16 +14,19 @@
 </div>
 
 <div class="Fijo">
-<h1 >🏆 Polla Mundialista 2026</h1>
+<h1 >🏆 Porra Mundialista 2026</h1>
 <h2 id="bienvenida"></h2>
 <div id="estadoGuardado"></div>
 </div>
 
-<div class="boxsimuldor">
+<div class="boxsimulador">
 <button id="simularResultados">
 ⚽ Simular 2-1 en fase de grupos
 </button>
 </div>
+
+
+<div id="bracketCompleto">
 
 <div id="grupos"></div>
 
@@ -39,16 +43,25 @@
 <div id="fasesFinales"></div>
 
 <div id="campeonBox"></div>
+<div>
 
-<script type="module" src="Java/app.js"></script>
-
-<!---<button onclick="guardar()">Guardar Pronóstico</button>-->
+</div class="campeonPDF">
+<div id="campeonBox"></div>
+</div>
+<div class="boxsimulador">
+<button id="btnPDF">📄 Descargar mi Mundial</button>
+</div>
 
 <footer>
-    <div>
-        <p>© 2026 - Desarrollado por JAMG Servicios</p>
-    </div>
+<p>© 2026 - Desarrollado por JAMG Servicios</p>
 </footer>
+
+<!-- ✅ LIBRERIAS PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- ✅ TU APP -->
+<script type="module" src="Java/app.js"></script>
 
 </body>
 </html>

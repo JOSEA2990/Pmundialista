@@ -1,6 +1,8 @@
 body{
  font-family:Arial;
  padding:5px;
+    justify-content:center;
+    align-items:center;
 }
 
 .cajaS{
@@ -19,8 +21,13 @@ body{
     box-shadow: 5px 5px 5px 5px rgba(224, 192, 11, 0.9);
 }
 
-h1,h2{
+h1{
   font-size: 2vh;
+  margin:10px;
+}
+
+h2{
+  font-size: 3vh;
   margin:10px;
 }
 
@@ -158,12 +165,7 @@ h1,h2{
   font-size:18px;
 }
 
-.Login{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(226, 219, 219);
-    padding: 5px;
-}
+
 
 .terceros tr.clasifica{
  background:#d4edda;
@@ -285,11 +287,14 @@ h1,h2{
 /* tarjeta partido */
 .partido-eliminatoria{
     background:#fff;
+
+    border: 1px solid #070707;
     border-left:6px solid #0b5ed7;
+
     padding:7px 7px;
     margin-bottom:14px;
     border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.12);
+    box-shadow:0 2px 8px rgba(0,0,0,0.4);
     align-items: center;
     flex-wrap:wrap;
     display:flex;
@@ -390,7 +395,7 @@ label{font-size: 12px;}
 }
 
 .campeon-card{
-    background:linear-gradient(135deg,#ffd700,#ffb700);
+    background:linear-gradient(135deg,#b8b8b7,#2d62f3);
     padding:25px 40px;
     border-radius:14px;
     text-align:center;
@@ -426,4 +431,115 @@ footer {
     text-align: center;
     padding: 15px 0;
     font-size: 0.9rem;
+}
+
+
+
+.container{
+    max-width:420px;
+    text-align:center;
+    min-height:100vh;
+    justify-content:center;
+    align-items:center;
+    background-color: rgba(26, 39, 163, 0.7);
+    display: contents;
+}
+
+.hero h1{
+    padding: 5px;
+    margin-bottom:5px;
+    font-size: 3vh;
+}
+
+.hero p{
+    margin-top:0;
+    opacity:.8;
+}
+
+.Login{
+    flex-direction: column;
+    background-color: rgb(207, 205, 205);
+    padding: 5px;
+}
+
+.card-login{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+.card-login input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+.card-login button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#007bff;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.card-login button:hover{
+    background:#0056b3;
+}
+
+.registro{
+    margin-top:15px;
+}
+
+.info{
+    margin-top:20px;
+    font-size:14px;
+    margin-bottom: 140px;
+}
+
+.paso{
+    margin:5px 0;
+}
+
+#bracketCompleto{
+   background:white;
+   padding:20px;
+}
+
+/* =======================
+   MODO PDF
+======================= */
+
+.modo-pdf .campeonBox{
+    background:#1e3a8a !important;
+    color:white !important;
+    opacity:1 !important;
+    filter:none !important;
+    backdrop-filter:none !important;
+}
+
+.modo-pdf .campeonBox h2{
+    color:white !important;
+}
+
+.modo-pdf .campeonBox h1{
+    color:#ffd700 !important;
+}
+
+.campeonPDF{
+   display:none;
+}
+
+.modo-pdf .campeonPDF{
+   display:block;
+}
+
+.modo-pdf .campeonBox{
+   display:none;
 }

@@ -90,6 +90,26 @@ async function iniciarApp(){
 }
 iniciarApp();
 
+function esperarPartidosGrupos(){
+
+   return new Promise(resolve=>{
+
+      const intervalo = setInterval(()=>{
+
+         const partidos =
+            document.querySelectorAll(".partido-grupo");
+
+         if(partidos.length>=72){
+            clearInterval(intervalo);
+            resolve();
+         }
+
+      },50);
+
+   });
+
+}
+
 async function reconstruirMundialUsuario(datos){
 
  /* =========================
@@ -98,10 +118,14 @@ async function reconstruirMundialUsuario(datos){
 
  const base = await cargarMundial();
 
- renderizarMundial(
+ await renderizarMundial(
    base.equipos,
    base.partidos
  );
+
+  await esperarPartidosGrupos(); // ⭐ CLAVE
+  
+ /*console.log("Trae de RendeM:", base.equipos, base.partidos);*/
 
  /* =========================
     2. RESTAURAR GRUPOS
@@ -118,7 +142,11 @@ async function reconstruirMundialUsuario(datos){
    const gv = p[4];
 
    const partido =
-     document.querySelectorAll(".partido-grupo")[id-1];
+ document.querySelector(
+   `.partido-grupo[data-idgrupo="${id}"]`
+ );
+
+ /*console.log("datos de partidos:", id, gl, gv, partido);*/
 
    if(!partido) return;
 
@@ -137,20 +165,113 @@ async function reconstruirMundialUsuario(datos){
     4. RESTAURAR ELIMINATORIAS
  ========================= */
 
-setTimeout(()=>{
+/*setTimeout(()=>{
 
    restaurarEliminatorias(datos);
 
-   generarBracketAutomatico("restaurar");
+  /* generarBracketAutomatico("restaurar");*/
 
-   recalcularBracketCompleto();
+   /*recalcularBracketCompleto();
 
-},500);
+},500);*/
+ /* 🔥 ESPERAR A QUE EXISTAN 16AVOS */
+ /*await esperarBracket();*/
+ /* 🔥 RESTAURAR ELIMINATORIAS */
+ /*restaurarEliminatorias(datos);
+ recalcularBracketCompleto()*/
+
+/* await esperarBracket();
+
+/* 16avos 
+restaurarEliminatorias(datos);
+recalcularBracketCompleto();
+
+/* esperar octavos 
+await esperarFase(81);
+
+/* octavos 
+restaurarEliminatorias(datos);
+recalcularBracketCompleto();
+
+/* esperar cuartos 
+await esperarFase(89);
+
+/* cuartos + semis + final 
+restaurarEliminatorias(datos);
+recalcularBracketCompleto();
+
+/* 🔥 semifinales 
+await esperarUltimaFase();
+restaurarEliminatorias(datos);
+recalcularBracketCompleto();*/
+
+/* =========================
+   🔥 RESTAURACIÓN PROGRESIVA
+========================= */
+
+/* ===== 16AVOS ===== */
+await esperarBracket();
+
+restaurarEliminatorias(datos);
+recalcularBracketCompleto();
+
+
+/* ===== OCTAVOS ===== */
+await esperarFase(81);
+
+restaurarEliminatorias(datos);
+recalcularBracketCompleto();
+
+
+/* ===== CUARTOS ===== */
+await esperarFase(89);
+
+restaurarEliminatorias(datos);
+recalcularBracketCompleto();
+
+ /* =========================
+    6. SEMIS
+ ========================= */
+
+ await esperarFase(101);
+
+ restaurarEliminatorias(datos);
+ recalcularBracketCompleto();
+
+ /* =========================
+    7. FINAL + 3ER PUESTO 🔥
+ ========================= */
+
+ await esperarFinales();
+ restaurarEliminatorias(datos);
+
+ recalcularBracketCompleto();
 
 }
 
-function restaurarEliminatorias(datos){
+function esperarFase(idMinimo){
 
+ return new Promise(resolve=>{
+
+   const intervalo = setInterval(()=>{
+
+      const partidos =
+        document.querySelectorAll(".partido-eliminatoria");
+
+      const existe = [...partidos]
+        .some(p => Number(p.dataset.partido) >= idMinimo);
+
+      if(existe){
+         clearInterval(intervalo);
+         resolve();
+      }
+
+   },100);
+
+ });
+}
+
+function restaurarEliminatorias(datos){
  datos.slice(1).forEach(p=>{
 
    const id = Number(p[0]);
@@ -219,7 +340,6 @@ function restaurarEliminatorias(datos){
  recalcularBracketCompleto();
 
 }
-
 
 /*BOTON DE SIMULACION*/
 function simularResultadosGrupos(){
@@ -324,19 +444,49 @@ export async function guardarUsuario(){
 
    if(!id) return;
 
-   partidos.push([
-     id,
-     p.querySelector(".equipo-local,.local,.equipo:nth-child(1)")
-      ?.textContent.trim(),
+/*const gl = p.querySelector(
+  `.golLocal[data-partido="${id}"],
+   .gol-local[data-partido="${id}"]`
+);
 
-     p.querySelector(".equipo-visitante,.visitante,.equipo:nth-child(3)")
-      ?.textContent.trim(),
+const gv = p.querySelector(
+  `.golVisitante[data-partido="${id}"],
+   .gol-visitante[data-partido="${id}"]`
+);
 
-     p.querySelector(".golLocal,.gol-local")?.value || "",
-     p.querySelector(".golVisitante,.gol-visitante")?.value || "",
-     p.querySelector(".penLocal")?.value || "",
-     p.querySelector(".penVisitante")?.value || ""
-   ]);
+const pl = p.querySelector(
+  `.penLocal[data-partido="${id}"]`
+);
+
+const pv = p.querySelector(
+  `.penVisitante[data-partido="${id}"]`
+);*/
+
+
+const gl = p.querySelector(".golLocal, .gol-local");
+const gv = p.querySelector(".golVisitante, .gol-visitante");
+const pl = p.querySelector(".penLocal");
+const pv = p.querySelector(".penVisitante");
+
+ /* ⭐ EQUIPOS */
+    const equipos = p.querySelectorAll(
+      ".equipo, .local, .visitante"
+    );
+
+    const local = equipos[0]?.textContent.trim() || "";
+    const visitante = equipos[1]?.textContent.trim() || "";
+
+
+partidos.push([
+ id,
+ local,
+ visitante,
+
+ gl?.value || "",
+ gv?.value || "",
+ pl?.value || "",
+ pv?.value || ""
+]);
 
  });
 
@@ -365,6 +515,152 @@ document.getElementById("estadoGuardado")
 
 }
 
+function esperarBracket(){
+
+ return new Promise(resolve=>{
+
+   const intervalo = setInterval(()=>{
+
+      const partidos =
+        document.querySelectorAll(".partido-eliminatoria");
+
+      if(partidos.length > 0){
+         clearInterval(intervalo);
+         resolve();
+      }
+
+   },100);
+
+ });
+}
+
+function esperarUltimaFase(){
+
+ return new Promise(resolve=>{
+
+   const intervalo = setInterval(()=>{
+
+      const partidos =
+        document.querySelectorAll(".partido-eliminatoria");
+
+      const existeSemi =
+        [...partidos].some(p =>
+          Number(p.dataset.partido) >= 101
+        );
+
+      if(existeSemi){
+         clearInterval(intervalo);
+         resolve();
+      }
+
+   },100);
+
+ });
+}
+
+function esperarPartidosHasta(maxID){
+
+ return new Promise(resolve=>{
+
+   const intervalo = setInterval(()=>{
+
+      const partidos =
+        document.querySelectorAll(".partido-eliminatoria");
+
+      const idsDOM = [...partidos]
+        .map(p=>Number(p.dataset.partido));
+
+      if(idsDOM.includes(maxID)){
+         clearInterval(intervalo);
+         resolve();
+      }
+
+   },100);
+
+ });
+}
+
+async function esperarFinales(){
+
+  console.log("esperando finales...");
+
+  while(
+    !document.querySelector('.partido-eliminatoria[data-partido="103"]') ||
+    !document.querySelector('.partido-eliminatoria[data-partido="104"]')
+  ){
+     await new Promise(r=>setTimeout(r,100));
+  }
+
+  console.log("finales listas ✅");
+}
+
+
+document
+.getElementById("btnPDF")
+.addEventListener("click", generarPDF);
+
+async function generarPDF(){
+
+ const { jsPDF } = window.jspdf;
+
+ const usuarioID =
+   localStorage.getItem("usuarioID");
+
+   const contenedor =
+   document.getElementById("bracketCompleto");
+
+ document.body.classList.add("modo-pdf");
+
+
+ /* ✅ esperar render final */
+ await new Promise(r=>setTimeout(r,800));
+
+ const canvas = await html2canvas(contenedor,{
+    scale:2,
+    useCORS:true,
+    scrollY:-window.scrollY
+ });
+
+ const imgData = canvas.toDataURL("image/png");
+
+ const pdf = new jsPDF("p","mm","a4");
+
+ const pdfWidth = pdf.internal.pageSize.getWidth();
+ const pdfHeight =
+   (canvas.height * pdfWidth) / canvas.width;
+
+ const imgWidth = 210;
+const pageHeight = 297;
+
+const imgHeight =
+  (canvas.height * imgWidth) / canvas.width;
+
+let heightLeft = imgHeight;
+let position = 0;
+
+pdf.addImage(imgData,"PNG",0,position,imgWidth,imgHeight);
+heightLeft -= pageHeight;
+
+while(heightLeft > 0){
+
+  position = heightLeft - imgHeight;
+
+  pdf.addPage();
+
+  pdf.addImage(
+    imgData,
+    "PNG",
+    0,
+    position,
+    imgWidth,
+    imgHeight
+  );
+
+  heightLeft -= pageHeight;
+}
+
+ pdf.save(`Porra_${usuarioID}.pdf`);
+}
 
 /*setTimeout(()=>{
    autoResultadosPrueba();

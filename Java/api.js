@@ -5,7 +5,7 @@ export async function cargarMundial(){
 const res = await fetch(URL+"?accion=mundial");
 
 const data = await res.json();  
- console.log("DATA SERVIDOR:", data);   // 👈 IMPORTANTE
+/*console.log("DATA SERVIDOR:", data);   // 👈 IMPORTANTE
 
  /*const equipos = data.groups.slice(1);
  const partidos = data.groupMatches.slice(1);*/

@@ -220,11 +220,31 @@ export function pintardieciseis(cruces, clasificados){
 
  cruces.forEach((c,i)=>{
  
-   const numero = c.id || c.partido?.id;
+  const numero = c.id || c.partido?.id;
 
-   const local = clasificados[c.local];
+  const local = clasificados[c.local];
+  const visitante = clasificados[c.visitante];
 
-   const visitante = clasificados[c.visitante];
+  const partidoExistente = document.querySelector(`[data-partido="${numero}"]`);
+
+  /* =========================
+    SI YA EXISTE → ACTUALIZAR
+ ========================= */
+
+ if(partidoExistente){
+
+   partidoExistente
+     .querySelector(".local")
+     .textContent =
+       `${c.local} ${local.equipo}`;
+
+   partidoExistente
+     .querySelector(".visitante")
+     .textContent =
+       `${c.visitante} ${visitante.equipo}`;
+
+   return;
+ }
 
   if(document.querySelector(`[data-partido="${c.id}"]`))
    return;
@@ -339,7 +359,7 @@ export function obtenerClasificados(tablasGrupos){
  );
 
  const mejoresTerceros=terceros.slice(0,8);
-
+ /*console.log(mejoresTerceros);*/
  return{
    posiciones,
    primeros,
@@ -536,9 +556,31 @@ function crearPartidoFase(id, local, visitante, contenedor){
 
   if(!contenedor) return;
 
-  /* ✅ si ya existe → NO recrear */
+  /* ✅ si ya existe → NO recrear 
  if(document.querySelector(`[data-partido="${id}"]`))
-   return;
+   return;*/
+
+ const existente =
+  document.querySelector(`[data-partido="${id}"]`);
+
+/* =========================
+   SI EXISTE → SOLO ACTUALIZA EQUIPOS
+========================= */
+
+if(existente){
+
+ existente.querySelector(".local").textContent =
+   limpiarNombreEquipo(local);
+
+ existente.querySelector(".visitante").textContent =
+   limpiarNombreEquipo(visitante);
+
+ return;
+}
+
+/* =========================
+   SI NO EXISTE → CREAR PARTIDO
+========================= */
 
   /*contenedor.innerHTML += `*/
   contenedor.insertAdjacentHTML("beforeend",`
@@ -552,13 +594,11 @@ function crearPartidoFase(id, local, visitante, contenedor){
 
        <span class="local">${limpiarNombreEquipo(local)}</span>
 
-       <input type="number"
-         class="golLocal" value="1">
+       <input type="number" class="golLocal" data-partido="${id}">
 
        <span>-</span>
 
-       <input type="number"
-         class="golVisitante" value="0">
+       <input type="number" class="golVisitante" data-partido="${id}">
 
        <span class="visitante">${limpiarNombreEquipo(visitante)}</span>
 
@@ -572,10 +612,10 @@ function crearPartidoFase(id, local, visitante, contenedor){
 
      <div class="penales-box hidden">
        <input type="number"
-          class="penLocal" placeholder="Pen L">
+          class="penLocal" placeholder="Pen L" data-partido="${id}">
        <span>-</span>
        <input type="number"
-          class="penVisitante" placeholder="Pen V">
+          class="penVisitante" placeholder="Pen V" data-partido="${id}">
      </div>
 
    </div>
@@ -663,13 +703,13 @@ function construirFases(resultados){
       crearPartidoFase(id,equipoA,equipoB);
       actualizarEquipos(id,equipoA,equipoB);
 
-      /* SOLO si el usuario aún no decidió el partido */
+      /* SOLO si el usuario aún no decidió el partido 
        if(!resultados[id]){
        resultados[id]={
         ganador:equipoA,
         perdedor:equipoB
        };
-      }
+      }*/
 
     });
 
@@ -792,6 +832,31 @@ function restaurarResultados(mapa){
 
 function bracketYaInicializado(){
   return localStorage.getItem("bracketInicializado") === "true";
+}
+
+function esperarPartidosHasta(maxID){
+
+ return new Promise(resolve=>{
+
+   const intervalo = setInterval(()=>{
+
+      const partidos =
+        document.querySelectorAll(".partido-eliminatoria");
+
+      const idsDOM = [...partidos]
+        .map(p=>Number(p.dataset.partido));
+
+      const existeMax =
+        idsDOM.includes(maxID);
+
+      if(existeMax){
+         clearInterval(intervalo);
+         resolve();
+      }
+
+   },100);
+
+ });
 }
 
 /*export function activarActualizacionFases(){

@@ -2,6 +2,7 @@ import { obtenerClasificados, crearMapaClasificados, generarPartidosFijos } from
 import { pintarTablaTerceros } from "./terceros.js";
 import { obtenerCodigoTerceros } from "./utils.js";
 import { buscarFilaINDEXC, generarCrucesDesdeINDEXC, pintardieciseis} from "./clasificacion.js";
+let ultimaCombinacionFIFA = null;
 
 function renderizarMundial(equipos, partidos){
 
@@ -67,7 +68,7 @@ function renderizarMundial(equipos, partidos){
 
    g.partidos.forEach(partido=>{
     /*console.log("GRUPO PARTIDO:", "["+partido[2]+"]","["+partido[3]+"]" );*/
-
+     /*console.log(partido);*/
      html+=`
      <div class="partido-grupo" data-grupo="${grupo}" data-idgrupo="${partido[0]}">
 
@@ -122,7 +123,7 @@ function renderizarMundial(equipos, partidos){
  .forEach(input=>{
    input.addEventListener("change",recalcularTablas);
  });
-
+  return true;
 }
 
 function recalcularTablas(){
@@ -188,11 +189,17 @@ const codigo = obtenerCodigoTerceros(clasificados.mejoresTerceros);
 
 const filaFIFA = buscarFilaINDEXC(codigo);
 
+
 /*const cruces = generarCrucesDesdeINDEXC(filaFIFA);*/
 if(!filaFIFA){
    console.log("⚠️ combinación FIFA aún incompleta");
    return;
 }
+/* ✅ SOLO si cambia la combinacion */
+if(codigo === ultimaCombinacionFIFA){
+   return;
+}
+ultimaCombinacionFIFA = codigo;
 
 const partidosFijos = generarPartidosFijos();
 const partidosVariables = generarCrucesDesdeINDEXC(filaFIFA);
