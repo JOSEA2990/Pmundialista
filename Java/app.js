@@ -77,14 +77,18 @@ async function iniciarApp(){
  console.log("TIPO:",data.tipo);
  /* ===== PRIMER INGRESO ===== */
  if(data.tipo==="base"){
-   renderizarMundial(
+    mostrarLoader();
+  renderizarMundial(
      data.groups.slice(1),
      data.groupMatches.slice(1)
    );
+    ocultarLoader();
  }
  /* ===== USUARIO EXISTENTE ===== */
  if(data.tipo==="usuario"){
+  mostrarLoader();
    reconstruirMundialUsuario(data.datos);
+    ocultarLoader();
  }
 
 }
@@ -660,6 +664,14 @@ while(heightLeft > 0){
 }
 
  pdf.save(`Porra_${usuarioID}.pdf`);
+}
+
+function mostrarLoader(){
+   document.getElementById("loader").style.display="flex";
+}
+
+function ocultarLoader(){
+   document.getElementById("loader").style.display="none";
 }
 
 /*setTimeout(()=>{
