@@ -30,3 +30,21 @@ const URL="https://script.google.com/macros/s/AKfycbx4FlB1z3KLWH3fSbQdMby57AwcwB
    alert("❌ Datos incorrectos");
  }
 }
+
+const btnInfo = document.getElementById("btnInfo");
+const modal = document.getElementById("modalInfo");
+const cerrar = document.getElementById("cerrarInfo");
+
+if(btnInfo){
+  btnInfo.onclick = ()=> modal.style.display="block";
+}
+
+if(cerrar){
+  cerrar.onclick = ()=> modal.style.display="none";
+}
+
+window.onclick = (e)=>{
+  if(e.target === modal){
+     modal.style.display="none";
+  }
+};

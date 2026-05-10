@@ -543,3 +543,62 @@ footer {
 .modo-pdf .campeonBox{
    display:none;
 }
+
+/* ===== MODAL ===== */
+
+.modal{
+  display:none;
+  position:fixed;
+  z-index:999;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+}
+
+.modal-content{
+  background:white;
+  margin:5% auto;
+  padding:25px;
+  width:90%;
+  max-width:600px;
+  border-radius:12px;
+  line-height:1.6;
+}
+
+#cerrarInfo{
+  float:right;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.Login,
+.Registro{
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   gap:12px;
+}
+
+.Login input,
+.Registro input{
+   width:320px;
+   padding:12px;
+   font-size:16px;
+   border-radius:8px;
+   border:1px solid #ccc;
+}
+
+.Login button,
+.Registro button{
+   width:340px;
+   padding:12px;
+   font-size:16px;
+   background: #1f2a38;
+   border:none;
+   border-radius:8px;
+   cursor:pointer;
+   font-weight:bold;
+   color: white;
+}
