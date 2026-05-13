@@ -559,10 +559,10 @@ footer {
   background:rgba(0,0,0,0.6);
 
   /* CENTRAR */
-  display:flex;
   justify-content:center;
   align-items:center;
 }
+
 
 .modal-content{
   background:white;

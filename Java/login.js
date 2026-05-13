@@ -36,7 +36,7 @@ const modal = document.getElementById("modalInfo");
 const cerrar = document.getElementById("cerrarInfo");
 
 if(btnInfo){
-  btnInfo.onclick = ()=> modal.style.display="block";
+  btnInfo.onclick = ()=> modal.style.display="flex";
 }
 
 if(cerrar){
