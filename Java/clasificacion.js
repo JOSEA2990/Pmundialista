@@ -202,7 +202,7 @@ function obtenerResultadoPartido(p){
  return null;
 }
 
-export function pintardieciseis(cruces, clasificados){
+/*export function pintardieciseis(cruces, clasificados){
 
  const contenedor =
    document.getElementById("dieciseis");
@@ -210,7 +210,7 @@ export function pintardieciseis(cruces, clasificados){
  /*contenedor.innerHTML =
    "<h2>Dieciseiavos de Final</h2>";*/
 
- if(!contenedor.dataset.renderizado){
+ /*(!contenedor.dataset.renderizado){
 
    contenedor.innerHTML =
       "<h2>Dieciseisavos de Final</h2>";
@@ -230,6 +230,9 @@ export function pintardieciseis(cruces, clasificados){
   /* =========================
     SI YA EXISTE → ACTUALIZAR
  ========================= */
+
+ /*console.log(c.local)
+ console.log(c.visitante)
 
  if(partidoExistente){
 
@@ -267,6 +270,102 @@ export function pintardieciseis(cruces, clasificados){
          class="golVisitante"
          data-partido="${c.id}">
       <span class="visitante">${c.visitante} ${visitante.equipo}</span>
+      </div>
+
+      <label>
+        <input type="checkbox"
+           class="penales"
+           data-partido="${c.id}">
+        Penales
+      </label>
+
+      <div class="penales-box hidden">
+         <input type="number" placeholder="Pen L" class="penLocal"
+         data-partido="${c.id}">
+
+
+         <span>-</span>
+         <input type="number" placeholder="Pen V" class="penVisitante"
+         data-partido="${c.id}">
+
+      </div>
+
+   </div>
+   `;
+ });
+
+ console.log("entro a 16avo")
+ /*generarBracketAutomatico();
+}*/
+
+export function pintardieciseis(cruces, clasificados){
+
+ const contenedor =
+   document.getElementById("dieciseis");
+
+ /*contenedor.innerHTML =
+   "<h2>Dieciseiavos de Final</h2>";*/
+
+ if(!contenedor.dataset.renderizado){
+
+   contenedor.innerHTML =
+      "<h2>Dieciseisavos de Final</h2>";
+
+   contenedor.dataset.renderizado = "true";
+}
+
+ cruces.forEach((c,i)=>{
+ 
+  const numero = c.id || c.partido?.id;
+
+  const local = clasificados[c.local];
+  const visitante = clasificados[c.visitante];
+
+  const partidoExistente = document.querySelector(`[data-partido="${numero}"]`);
+
+  /* =========================
+    SI YA EXISTE → ACTUALIZAR
+ ========================= */
+
+ console.log(c.local)
+ console.log(c.visitante)
+
+ if(partidoExistente){
+
+   partidoExistente
+     .querySelector(".local")
+     .textContent =
+       `${c.local}`;
+
+   partidoExistente
+     .querySelector(".visitante")
+     .textContent =
+       `${c.visitante}`;
+
+   return;
+ }
+
+  if(document.querySelector(`[data-partido="${c.id}"]`))
+   return;
+
+   contenedor.innerHTML += `
+   <div class="partido-eliminatoria" data-partido="${c.id}">
+
+      <div class="numero">
+         Partido ${numero}
+      </div>
+
+      <div class="linea-equipos">
+      <span class="local">${c.local}</span>
+
+      <input type="number"
+         class="golLocal"
+         data-partido="${c.id}">
+      <span>-</span>
+      <input type="number"
+         class="golVisitante"
+         data-partido="${c.id}">
+      <span class="visitante">${c.visitante}</span>
       </div>
 
       <label>
@@ -368,7 +467,7 @@ export function obtenerClasificados(tablasGrupos){
  };
 }
 
-export function generarPartidosFijos(){
+/*export function generarPartidosFijos(){
 
 return [
 
@@ -385,6 +484,30 @@ return [
   {id:86, local:"1J", visitante:"2H"},
 
   {id:88, local:"2D", visitante:"2G"}
+
+ ];
+}*/
+
+export function generarPartidosFijos(){
+
+return [
+
+  {id:73, local:"SUDAFRICA", visitante:"CANADA"},
+  {id:74, local:"ALEMANIA", visitante:"PARAGUAY"},
+  {id:75, local:"PAISES BAJOS", visitante:"MARRUECOS"},
+  {id:76, local:"BRASIL", visitante:"JAPON"},
+  {id:77, local:"FRANCIA", visitante:"SUECIA"},
+  {id:78, local:"COSTA DE MARFIL", visitante:"NORUEGA"},
+  {id:79, local:"MEXICO", visitante:"ECUADOR"},
+  {id:80, local:"INGLATERRA", visitante:"REP. CONGO"},
+  {id:81, local:"ESTADOS UNIDOS", visitante:"BOSNIA"},
+  {id:82, local:"BELGICA", visitante:"SENEGAL"},
+  {id:83, local:"PORTUGAL", visitante:"CROACIA"},
+  {id:84, local:"ESPAÑA", visitante:"AUSTRIA"},
+  {id:85, local:"SUIZA", visitante:"ARGELIA"},
+  {id:86, local:"ARGENTINA", visitante:"CABO VERDE"},
+  {id:87, local:"COLOMBIA", visitante:"GHANA"},
+  {id:88, local:"AUSTRALIA", visitante:"EGIPTO"}
 
  ];
 }
@@ -456,7 +579,7 @@ const MAPA_PARTIDOS_TERCEROS = {
   "1L":80
 };
 
-export function generarCrucesDesdeINDEXC(fila){
+/*export function generarCrucesDesdeINDEXC(fila){
 
  const header = INDEXC[0];
  const cruces=[];
@@ -479,7 +602,37 @@ export function generarCrucesDesdeINDEXC(fila){
  }
 
  return cruces;
+}*/
+
+export function generarCrucesDesdeINDEXC(fila){
+
+ const header = INDEXC[0];
+ const cruces=[];
+
+cruces [
+
+  {id:73, local:"SUDAFRICA", visitante:"CANADA"},
+  {id:74, local:"ALEMANIA", visitante:"PARAGUAY"},
+  {id:75, local:"PAISES BAJOS", visitante:"MARRUECOS"},
+  {id:76, local:"BRASIL", visitante:"JAPON"},
+  {id:77, local:"FRANCIA", visitante:"SUECIA"},
+  {id:78, local:"COSTA DE MARFIL", visitante:"NORUEGA"},
+  {id:79, local:"MEXICO", visitante:"ECUADOR"},
+  {id:80, local:"INGLATERRA", visitante:"REP. CONGO"},
+  {id:81, local:"ESTADOS UNIDOS", visitante:"BOSNIA"},
+  {id:82, local:"BELGICA", visitante:"SENEGAL"},
+  {id:83, local:"PORTUGAL", visitante:"CROACIA"},
+  {id:84, local:"ESPAÑA", visitante:"AUSTRIA"},
+  {id:85, local:"SUIZA", visitante:"ARGELIA"},
+  {id:86, local:"ARGENTINA", visitante:"CABO VERDE"},
+  {id:87, local:"COLOMBIA", visitante:"GHANA"},
+  {id:88, local:"AUSTRALIA", visitante:"EGIPTO"}
+
+ ];
+
+ return cruces;
 }
+
 
 import { BRACKET_FIFA } from "./bracketFIFA.js";
 import { guardarUsuario } from "./app.js";

@@ -193,7 +193,7 @@ const pl =
    `;
 
    /* cerrar ultima fase */
-   /*if(index===BRACKET_FIFA.length-1){
+/*if(index===BRACKET_FIFA.length-1){
       htmlFase += `</div>`;
       cont.innerHTML += htmlFase;
    }*/
